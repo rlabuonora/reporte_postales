@@ -18,6 +18,11 @@ body {
 }
 
 
+
+.pagedjs_page:last-of-type {
+    background-image: url("postales_backcover.png");
+
+}
 @page  {
   @bottom-right {
     content: counter(page);
