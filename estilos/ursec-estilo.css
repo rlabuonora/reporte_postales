@@ -1,0 +1,30 @@
+/* AZUL: #001a60 */
+/* AMARILLO: #ffc000 */
+/* GRIS: #383535 */
+
+
+
+body {
+  font-family: "Agency FB";
+}
+
+
+
+@page :first{
+  
+  margin: 0 0 0 0;
+  background-image: url("portada_postales.png");
+  background-position: cover;
+}
+
+
+@page  {
+  @bottom-right {
+    content: counter(page);
+  }
+}
+
+
+.title, .date, .author {
+  display: none;
+}

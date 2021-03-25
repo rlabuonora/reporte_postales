@@ -1,0 +1,74 @@
+---
+title: "Informe Mercado Telecomunicaciones"
+author: "URSEC"
+output:
+  pagedown::html_paged:
+    toc: true
+    css:
+      - "estilos/ursec-default-page.css"
+      - "estilos/ursec-default.css"
+      - "estilos/ursec-estilo.css"
+    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    self_contained: true
+# uncomment this line to produce HTML and PDF in RStudio:
+#knit: pagedown::chrome_print
+abstract: | 
+  ### Informe de Mercado de Telecomunicaciones de Uruguay
+  
+  ### Datos a Diciembre 2020
+  
+  _Unidad Reguladora de Servicios de Comunicaciones (URSEC)_\
+  Av. Uruguay 998 11000 Montevideo, Uruguay\
+  Tel. +598 2902 8082\
+  http://ursec.gub.uy
+  
+  
+  **Presidenta**\
+  Mercedes Aramendía
+  
+  **Vicepresidente**\
+  Gustavo Delgado
+  
+  **Director**\
+  Pablo Siris
+
+  *División de Regulación Jurídica y Económica*\
+  **Gerente**\
+  Graciela Coronel\
+  
+  *Departamento de Regulación e Investigación Económica*\
+  **Jefe**\
+  Diego Larriera\
+
+  Diseño de Portada: Enrique Ros\
+  Foto de portada: Chan Lin (https://unsplash.com/@lowkeyhahaha)
+  
+  **Licencia**
+  
+  ![](estilos/cc.png)
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, 
+                      warning = FALSE,
+                      message=FALSE,
+                      cache=FALSE,
+                      fig.width = 7, 
+                      fig.height = 4.5)
+
+
+
+
+FECHA_INFORME_ANUAL <-  as.Date("2020-12-01")
+FECHA_TITULO_STOCK <-  "Diciembre 2020"
+FECHA_TITULO_FLUJO <-  "año 2020"
+
+
+
+```
+
+
+
+Hola
+
