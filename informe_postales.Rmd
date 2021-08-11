@@ -36,9 +36,9 @@ abstract: |
   **Gerente**\
   Graciela Coronel\
   
-  *Departamento de Regulación e Investigación Económica*\
-  **Jefe**\
-  Diego Larriera\
+  *Divisón de Servicios Postales*\
+  **Gerente**\
+  Luis González\
 
   Diseño de Portada: Enrique Ros\
   Foto de portada: Chan Lin (https://unsplash.com/@lowkeyhahaha)
