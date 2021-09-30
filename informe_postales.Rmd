@@ -318,3 +318,264 @@ importar_columna_trafico(c("N", "O", "P", "Q"),
   summarize(numeric=round(sum(numeric)))
 ```
 
+
+## Paquetes Comunes
+
+### Total semestral de Paquetes Comunes Nacionales (en miles)
+
+```{r}
+importar_columna_trafico("CI") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Total semestral de Paquetes Comunes Internacionales - Salida (en miles)
+
+```{r}
+importar_columna_trafico("CL") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Total semestral de Paquetes Comunes Internacionales - Entrada (en miles)
+```{r}
+importar_columna_trafico("CO") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+## Cartas Registradas
+
+### Total semestral de Cartas Registradas Nacionales (en miles)
+```{r}
+importar_columna_trafico("AL") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+
+### Cartas Registradas Nacionales (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("AH", "AI", "AJ", "AK"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Cartas Registradas Internacionales - Salida (en miles)
+```{r}
+importar_columna_trafico("AQ") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Cartas Registradas Internacionales - Salida (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("AM", "AN", "AO", "AP"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Cartas Registradas Internacionales - Entrada (en miles)
+```{r}
+importar_columna_trafico("AV") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Cartas Registradas Internacionales - Entrada (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("AR", "AS", "AT", "AU"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+## Paquetes Registrados
+
+### Total semestral de Paquetes Registrados Nacionales (en miles)
+```{r}
+importar_columna_trafico("CR") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Paquetes Registrados Nacionales (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("CP", "CQ"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Paquetes Registrados Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico("CU") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Paquetes Registrados Internacionales – Salida (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("CS", "CT"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Paquetes Registrados Internacionales – Entrada (en miles)
+```{r}
+
+importar_columna_trafico("CX") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Paquetes Registrados Internacionales – Entrada (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("CV", "CW"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+## Cartas Aseguradas
+
+### Total semestral de Cartas Aseguradas Nacionales (en miles)
+```{r}
+importar_columna_trafico("BA") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+```{r}
+importar_columna_trafico(c("AW", "AX", "AY", "AZ"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+
+```
+
+## Cartas Servicio Courier
+
+### Total semestral de Cartas Courier Nacionales (en miles)
+```{r}
+importar_columna_trafico("BP") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Cartas Courier Nacionales (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("BL", "BM", "BN", "BO"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Cartas Courier Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico("BU") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Cartas Courier Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico(c("BQ", "BR", "BS", "BT"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+### Total semestral de Cartas Courier Internacionales – Entrada (en miles)
+
+```{r}
+importar_columna_trafico("BZ") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+```{r}
+importar_columna_trafico(c("BV", "BW", "BX", "BY"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+## PAQUETES SERVICIO COURIER
+
+### Total semestral de Paquetes Courier Nacionales (en miles)
+```{r}
+importar_columna_trafico("DS") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Total semestral de Paquetes Courier Nacionales (en miles)
+```{r}
+importar_columna_trafico(c("DQ", "DR"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+### Total semestral de Paquetes Courier Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico("DV") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Paquetes Courier Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico(c("DT", "DU"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+### Total semestral de Paquetes Courier Internacionales – Entrada (en miles)
+```{r}
+importar_columna_trafico("DY") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+
+### Paquetes Courier Internacionales – Entrada (en miles)
+```{r}
+importar_columna_trafico(c("DW", "DX"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+```
+
+
+
+## ENVÍOS POR OPERADOR
+
+### Cartas por operador (semestre I - 2020)
+```{r}
+
+```
+
