@@ -1,5 +1,5 @@
 ---
-title: "Informe Mercado Telecomunicaciones"
+title: "Informe Mercado de Servicios Postales"
 author: "URSEC"
 output:
   pagedown::html_paged:
@@ -258,5 +258,63 @@ importar_columna_trafico(c("CX", "DG", "DP", "DY"),
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
     summarize(numeric=round(sum(numeric)))
+```
+
+# CARTAS Y PAQUETES
+
+## CARTAS COMUNES
+
+### Total semestral de Cartas Comunes Nacionales (en millones)
+```{r}
+importar_columna_trafico("H") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e6)
+```
+
+
+### Cartas Comunes Nacionales (semestre I - 2020)
+```{r}
+df <- importar_columna_trafico(c("C", "D", "E", "F", "G"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+  
+```
+
+### Total semestral de Cartas Comunes Internacionales – Salida (en miles)
+```{r}
+importar_columna_trafico("M") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+### Cartas Comunes Internacionales – Salida (semestre I - 2020)
+
+```{r}
+importar_columna_trafico(c("I", "J", "K", "L"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
+
+```
+
+
+### Total semestral de Cartas Comunes Internacionales – Entrada (en miles)
+```{r}
+importar_columna_trafico("R") %>% 
+  group_by(year(fecha), semester(fecha)) %>%
+  summarize(numeric=round(sum(numeric))/1e3)
+```
+
+
+### Cartas Comunes Internacionales – Entrada (semestre I - 2020)
+```{r}
+importar_columna_trafico(c("N", "O", "P", "Q"),
+                         header_row=list(cabezal_1=4)) %>% 
+  filter(year(fecha)==2020, semester(fecha)==1) %>% 
+  group_by(cabezal_1) %>% 
+  summarize(numeric=round(sum(numeric)))
 ```
 
