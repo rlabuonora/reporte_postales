@@ -8,14 +8,14 @@ output:
       - "estilos/ursec-default-page.css"
       - "estilos/ursec-default.css"
       - "estilos/ursec-estilo.css"
-    # change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
+    ## change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
     self_contained: true
-# uncomment this line to produce HTML and PDF in RStudio:
+## uncomment this line to produce HTML and PDF in RStudio:
 #knit: pagedown::chrome_print
 abstract: | 
-  ### Informe de Mercado de Telecomunicaciones de Uruguay
+  #### Informe de Mercado de Telecomunicaciones de Uruguay
   
-  ### Datos a Diciembre 2020
+  #### Datos a Diciembre 2020
   
   _Unidad Reguladora de Servicios de Comunicaciones (URSEC)_\
   Av. Uruguay 998 11000 Montevideo, Uruguay\
@@ -62,260 +62,314 @@ FECHA_TITULO_STOCK <-  "Diciembre 2020"
 FECHA_TITULO_FLUJO <-  "año 2020"
 
 library(galeriaPostales)
+library(galeriaVis)
+
 library(tidyverse)
 library(lubridate)
 
-```
+theme_set(
+  theme_minimal(base_family="Agency FB", base_size = 14) +
+  theme(plot.background=element_rect(fill="#EEEEEE",
+                                     color="white"),
+          axis.line.x=element_blank(),
+          axis.ticks=element_blank(),
+          text=element_text(family="Agency FB")))
 
+library(extrafont)
+loadfonts()
 
-# Total semestral de Cartas enviadas (en millones)
+# Helpers
 
-```{r}
-# columnas CF y C
-importar_columna_trafico("C") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
-  
-
-importar_columna_trafico("CF", header_row = 3) %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
-```
-
-# Total semestral de Paquetes enviados (en miles)
-```{r}
-# ED
-importar_columna_trafico("ED", header_row = 3) %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
-```
-
-
-# Total semestral de Envíos Postales (en millones)
-```{r}
-# EG
-importar_columna_trafico("EG", header_row = 3) %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
-```
-
-# Total semestral de Cartas del SPU (millones)
-```{r}
-# FD
-importar_columna_trafico("FD") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
-```
-
-# Total semestral de Paquetes del SPU (miles)
-```{r}
-# FC
-importar_columna_trafico("FC") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
-```
-
-# Total semestral de Envíos del SPU (millones)
-
-```{r}
-# FB
-importar_columna_trafico("FB") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
-```
-
-
-# Total semestral de Cartas Nacionales (en millones)
-```{r}
-# H
-importar_columna_trafico("CA") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e6))
+flujo_semestral <- function(df) {
+  df %>% 
+    group_by(year=year(fecha), semester=semester(fecha)) %>%
+    summarize(numeric=round(sum(numeric))) %>% 
+    ungroup()
+}
 
 ```
 
+# Envíos Postales
+## Total semestral de Cartas enviadas (en millones)
 
-# Total semestral de Cartas Internacionales - Salida (en miles)
 ```{r}
-# CB
-importar_columna_trafico("CB") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
+## columnas CF y C
+operadores <- importar_totales_trafico("C") %>% 
+  flujo_semestral() %>% 
+  mutate(numeric = numeric/1e6,
+         operador="Operadores")
+
+pjh <- importar_totales_trafico("CF", header_row = 3) %>% 
+  flujo_semestral() %>% 
+  mutate(numeric = numeric/1e6,
+         operador="PJH")
+
+# Este lo dejo aca pq me embola hacerlo ahora
 ```
 
-# Total semestral de Cartas Internacionales - Entrada (en miles)
+## Total semestral de Paquetes enviados (en miles)
 ```{r}
-# CD
-importar_columna_trafico("CC") %>%
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
+## ED
+importar_totales_trafico("ED", header_row = 3) %>% 
+  flujo_semestral() %>% 
+  mutate(numeric = numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
-# Total semestral de Paquetes Nacionales (en miles)
+
+## Total semestral de Envíos Postales (en millones)
 ```{r}
-# DZ
-importar_columna_trafico("DZ") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
+## EG
+importar_totales_trafico("EG", header_row = 3) %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e6) %>% 
+  serie_historica_semestral_flujo(numeric)
+
 ```
 
-# Total semestral de Paquetes Internacionales - Salida (en miles)
+## Total semestral de Cartas del SPU (millones)
 ```{r}
-# EA
-importar_columna_trafico("EA") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
+## FD
+importar_totales_trafico("FD") %>% 
+ flujo_semestral() %>% 
+  mutate(numeric=numeric/1e6) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
-# Total semestral de Paquetes Internacionales - Entrada (en miles)
+## Total semestral de Paquetes del SPU (miles)
 ```{r}
-# EB
-importar_columna_trafico("EB") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric)/1e3))
+## FC
+importar_totales_trafico("FC") %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
-# Composición de Cartas (semestre I - 2020)
+## Total semestral de Envíos del SPU (millones)
+
 ```{r}
-importar_columna_trafico(c("CA", "CB", "CC")) %>% 
+## FB
+importar_totales_trafico("FB") %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e6) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+## Total semestral de Cartas Nacionales (en millones)
+```{r}
+## H
+importar_totales_trafico("CA")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e6) %>% 
+  serie_historica_semestral_flujo(numeric)
+
+```
+
+
+## Total semestral de Cartas Internacionales - Salida (en miles)
+```{r}
+## CB
+importar_totales_trafico("CB")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+## Total semestral de Cartas Internacionales - Entrada (en miles)
+```{r}
+## CD
+importar_totales_trafico("CC")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+## Total semestral de Paquetes Nacionales (en miles)
+```{r}
+## DZ
+importar_totales_trafico("DZ")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+## Total semestral de Paquetes Internacionales - Salida (en miles)
+```{r}
+## EA
+importar_totales_trafico("EA")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+## Total semestral de Paquetes Internacionales - Entrada (en miles)
+```{r}
+## EB
+importar_totales_trafico("EB")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
+```
+
+## Composición de Cartas (semestre I - 2020)
+```{r}
+importar_totales_trafico(c("CA", "CB", "CC")) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>%
   group_by(cabezal) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  pie_chart(numeric, cabezal, nudge_x = c(-3, 3, 0)) %>% 
+  print()
 ```
 
-# Composición de Paquetes (semestre I - 2020)
+## Composición de Paquetes (semestre I - 2020)
 ```{r}
-# DZ-EB
-importar_columna_trafico(c("DZ", "EA", "EB")) %>% 
+## DZ-EB
+importar_totales_trafico(c("DZ", "EA", "EB")) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>%
   group_by(cabezal) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  pie_chart(numeric, cabezal, nudge_x = c(-3, 3, 0)) %>% 
+  print()
 ```
 
-# Cartas Nacionales (semestre I - 2020)
+## Cartas Nacionales (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("H", "W", "AL", "BA", "BP"),
+importar_totales_trafico(c("H", "W", "AL", "BA", "BP"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    barras_horizontales(numeric, cabezal_1)
 
 ```
 
-# Cartas Internacionales – Salida (semestre I - 2020)
+## Cartas Internacionales – Salida (semestre I - 2020)
 
 
 ```{r}
-importar_columna_trafico(c("BU", "BF", "AQ", "AB", "M"),
+importar_totales_trafico(c("BU", "BF", "AQ", "AB", "M"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    barras_horizontales(numeric, cabezal_1)
 ```
 
-# Cartas Internacionales – Entrada (semestre I - 2020)
+## Cartas Internacionales – Entrada (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("R", "AG", "AV", "BK", "BZ"),
+importar_totales_trafico(c("R", "AG", "AV", "BK", "BZ"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    barras_horizontales(numeric, cabezal_1)
 ```
 
-# Paquetes Nacionales (semestre I - 2020)
+## Paquetes Nacionales (semestre I - 2020)
 
 ```{r}
-# =(TRAFICO!$CR$226,TRAFICO!$DA$226,TRAFICO!$DJ$226,TRAFICO!$DS$226)
+## =(TRAFICO!$CR$226,TRAFICO!$DA$226,TRAFICO!$DJ$226,TRAFICO!$DS$226)
 
-importar_columna_trafico(c("CR", "DA", "DJ", "DS"),
+importar_totales_trafico(c("CR", "DA", "DJ", "DS"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    filter(numeric > 0) %>% 
+    barras_horizontales(numeric, cabezal_1)
 
 ```
 
-# Paquetes Internacionales – Salida (semestre I - 2020)
+## Paquetes Internacionales – Salida (semestre I - 2020)
 
 ```{r}
-importar_columna_trafico(c("CL", "CU", "DD", "DM", "DV"),
+importar_totales_trafico(c("CL", "CU", "DD", "DM", "DV"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    barras_horizontales(numeric, cabezal_1)
 ```
 
-# Paquetes Internacionales – Entrada (semestre I - 2020)
+## Paquetes Internacionales – Entrada (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("CX", "DG", "DP", "DY"),
+importar_totales_trafico(c("CX", "DG", "DP", "DY"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>% 
     filter(year(fecha)==2020, semester(fecha)==1) %>%
     filter(cabezal_2=="TOTAL") %>% 
     group_by(cabezal_1) %>% 
-    summarize(numeric=round(sum(numeric)))
+    summarize(numeric=round(sum(numeric))) %>% 
+    barras_horizontales(numeric, cabezal_1)
 ```
 
-# CARTAS Y PAQUETES
+# Cartas y Paquetes
 
-## CARTAS COMUNES
+## Cartas Comunes
 
 ### Total semestral de Cartas Comunes Nacionales (en millones)
 ```{r}
-importar_columna_trafico("H") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e6)
+importar_totales_trafico("H") %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e6) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 
-### Cartas Comunes Nacionales (semestre I - 2020)
+#### Cartas Comunes Nacionales (semestre I - 2020)
 ```{r}
-df <- importar_columna_trafico(c("C", "D", "E", "F", "G"),
+importar_totales_trafico(c("C", "D", "E", "F", "G"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
   
 ```
 
-### Total semestral de Cartas Comunes Internacionales – Salida (en miles)
+#### Total semestral de Cartas Comunes Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico("M") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("M")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
-### Cartas Comunes Internacionales – Salida (semestre I - 2020)
+#### Cartas Comunes Internacionales – Salida (semestre I - 2020)
 
 ```{r}
-importar_columna_trafico(c("I", "J", "K", "L"),
+importar_totales_trafico(c("I", "J", "K", "L"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 
 ```
 
 
-### Total semestral de Cartas Comunes Internacionales – Entrada (en miles)
+#### Total semestral de Cartas Comunes Internacionales – Entrada (en miles)
 ```{r}
-importar_columna_trafico("R") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("R")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 
-### Cartas Comunes Internacionales – Entrada (semestre I - 2020)
+#### Cartas Comunes Internacionales – Entrada (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("N", "O", "P", "Q"),
+importar_totales_trafico(c("N", "O", "P", "Q"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
@@ -324,75 +378,84 @@ importar_columna_trafico(c("N", "O", "P", "Q"),
 ### Total semestral de Paquetes Comunes Nacionales (en miles)
 
 ```{r}
-importar_columna_trafico("CI") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CI")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Total semestral de Paquetes Comunes Internacionales - Salida (en miles)
 
 ```{r}
-importar_columna_trafico("CL") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CL")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Total semestral de Paquetes Comunes Internacionales - Entrada (en miles)
 ```{r}
-importar_columna_trafico("CO") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CO")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ## Cartas Registradas
 
 ### Total semestral de Cartas Registradas Nacionales (en miles)
 ```{r}
-importar_columna_trafico("AL") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("AL")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 
 ### Cartas Registradas Nacionales (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("AH", "AI", "AJ", "AK"),
+importar_totales_trafico(c("AH", "AI", "AJ", "AK"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Cartas Registradas Internacionales - Salida (en miles)
 ```{r}
-importar_columna_trafico("AQ") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("AQ")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Cartas Registradas Internacionales - Salida (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("AM", "AN", "AO", "AP"),
+importar_totales_trafico(c("AM", "AN", "AO", "AP"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Cartas Registradas Internacionales - Entrada (en miles)
 ```{r}
-importar_columna_trafico("AV") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("AV")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Cartas Registradas Internacionales - Entrada (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("AR", "AS", "AT", "AU"),
+importar_totales_trafico(c("AR", "AS", "AT", "AU"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
@@ -400,51 +463,57 @@ importar_columna_trafico(c("AR", "AS", "AT", "AU"),
 
 ### Total semestral de Paquetes Registrados Nacionales (en miles)
 ```{r}
-importar_columna_trafico("CR") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CR")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Paquetes Registrados Nacionales (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("CP", "CQ"),
+importar_totales_trafico(c("CP", "CQ"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Paquetes Registrados Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico("CU") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CU")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Paquetes Registrados Internacionales – Salida (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("CS", "CT"),
+importar_totales_trafico(c("CS", "CT"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Paquetes Registrados Internacionales – Entrada (en miles)
 ```{r}
 
-importar_columna_trafico("CX") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("CX")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Paquetes Registrados Internacionales – Entrada (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("CV", "CW"),
+importar_totales_trafico(c("CV", "CW"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
@@ -452,17 +521,19 @@ importar_columna_trafico(c("CV", "CW"),
 
 ### Total semestral de Cartas Aseguradas Nacionales (en miles)
 ```{r}
-importar_columna_trafico("BA") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("BA")  %>% 
+  flujo_semestral() %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ```{r}
-importar_columna_trafico(c("AW", "AX", "AY", "AZ"),
+importar_totales_trafico(c("AW", "AX", "AY", "AZ"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 
 ```
 
@@ -470,112 +541,130 @@ importar_columna_trafico(c("AW", "AX", "AY", "AZ"),
 
 ### Total semestral de Cartas Courier Nacionales (en miles)
 ```{r}
-importar_columna_trafico("BP") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("BP")  %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Cartas Courier Nacionales (semestre I - 2020)
 ```{r}
-importar_columna_trafico(c("BL", "BM", "BN", "BO"),
+importar_totales_trafico(c("BL", "BM", "BN", "BO"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Cartas Courier Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico("BU") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("BU")  %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Cartas Courier Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico(c("BQ", "BR", "BS", "BT"),
+importar_totales_trafico(c("BQ", "BR", "BS", "BT"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
 ### Total semestral de Cartas Courier Internacionales – Entrada (en miles)
 
 ```{r}
-importar_columna_trafico("BZ") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("BZ")  %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ```{r}
-importar_columna_trafico(c("BV", "BW", "BX", "BY"),
+importar_totales_trafico(c("BV", "BW", "BX", "BY"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
-## PAQUETES SERVICIO COURIER
+## Paquetes y Servicios Courier 
 
 ### Total semestral de Paquetes Courier Nacionales (en miles)
 ```{r}
-importar_columna_trafico("DS") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("DS")  %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Total semestral de Paquetes Courier Nacionales (en miles)
 ```{r}
-importar_columna_trafico(c("DQ", "DR"),
+importar_totales_trafico(c("DQ", "DR"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
 ### Total semestral de Paquetes Courier Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico("DV") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("DV")  %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 ### Paquetes Courier Internacionales – Salida (en miles)
 ```{r}
-importar_columna_trafico(c("DT", "DU"),
+importar_totales_trafico(c("DT", "DU"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 ### Total semestral de Paquetes Courier Internacionales – Entrada (en miles)
 ```{r}
-importar_columna_trafico("DY") %>% 
-  group_by(year(fecha), semester(fecha)) %>%
-  summarize(numeric=round(sum(numeric))/1e3)
+importar_totales_trafico("DY") %>% 
+  flujo_semestral() %>% 
+  filter(year>= 2016) %>% 
+  mutate(numeric=numeric/1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 ```
 
 
 ### Paquetes Courier Internacionales – Entrada (en miles)
 ```{r}
-importar_columna_trafico(c("DW", "DX"),
+importar_totales_trafico(c("DW", "DX"),
                          header_row=list(cabezal_1=4)) %>% 
   filter(year(fecha)==2020, semester(fecha)==1) %>% 
   group_by(cabezal_1) %>% 
-  summarize(numeric=round(sum(numeric)))
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal_1)
 ```
 
 
 
-## ENVÍOS POR OPERADOR
+<!-- ## Envíos por Operador -->
 
-### Cartas por operador (semestre I - 2020)
-```{r}
+<!-- ### Cartas por operador (semestre I - 2020) -->
+<!-- ```{r} -->
 
-```
+<!-- ``` -->
 
