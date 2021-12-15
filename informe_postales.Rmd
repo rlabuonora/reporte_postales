@@ -661,10 +661,183 @@ importar_totales_trafico(c("DW", "DX"),
 
 
 
-<!-- ## Envíos por Operador -->
+## Envíos por Operador
 
-<!-- ### Cartas por operador (semestre I - 2020) -->
-<!-- ```{r} -->
+### Cartas por operador (semestre I - 2020)
+```{r}
+cartas_base_larga <- readRDS(here::here("data", "cartas_base_larga.rds"))
 
-<!-- ``` -->
+# Colapsar chicos
+cartas_base_larga %>%
+    #filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric) 
+```
 
+### Paquetes por operador (semestre I - 2020)
+
+```{r}
+paquetes_base_larga <- readRDS(here::here("data", "paquetes_base_larga.rds"))
+
+paquetes_base_larga %>%
+   # filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+### Cartas Nacionales por operador (semestre I - 2020)
+
+```{r}
+
+# Colapsar chicos
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric) 
+```
+
+
+## Paquetes Nacionales por operador (semestre I - 2020)
+
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+
+```
+
+## Cartas Internacionales – Salida - por operador (semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ss]al")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+## Paquetes Internacionales – Salida - por operador (semestre I - 2020)
+
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ss]al")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+## Cartas Internacionales – Entrada - por operador (semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+## Paquetes Internacionales – Entrada - por operador (semestre I - 2020)
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+## Cartas Courier Nacionales por operador (semestre I - 2020)
+```{r}
+cartas_base_larga %>% 
+    filter(header_1 == "Courier Nac - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+
+## Paquetes Courier Nacionales por operador (semestre I - 2020)
+```{r}
+paquetes_base_larga %>% 
+    filter(header_1 == "Courier Nac") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+## Cartas Courier Internacionales – Salida - por operador (semestre I - 2020)
+```{r}
+cartas_base_larga %>% 
+    filter(header_1 == "Courier Sal - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+## Paquetes Courier Internacionales – Salida - por operador (semestre I - 2020)
+```{r}
+paquetes_base_larga %>% 
+    filter(header_1 == "Courier Sal") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+## Cartas Courier Internacionales – Entrada - por operador (semestre I - 2020)
+```{r}
+cartas_base_larga %>% 
+    filter(header_1 == "Courier Ent - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+## Paquetes Courier Internacionales – Entrada - por operador (semestre I - 2020)
+```{r}
+paquetes_base_larga %>% 
+    filter(header_1 == "Courier Ent") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(-numeric)
+```
+
+
+# Tarifas de Cartas
+
+## Tarifas promedio Cartas Comunes de 20 grs. – Nacional (pesos con impuestos)
+
+
+# Tarifas de Paquetes
+
+
+# Servicios Financieros
+
+
+# Dimensión
+
+# Envíos Por habitante
+
+# Ingresos del Sector
+
+# Activo Fijo
