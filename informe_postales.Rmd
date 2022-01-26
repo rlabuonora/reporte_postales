@@ -827,7 +827,75 @@ paquetes_base_larga %>%
 
 ## Tarifas promedio Cartas Comunes de 20 grs. – Nacional (pesos con impuestos)
 
+```{r}
 
+# Pattern para parsear la columna header_1
+PAT_INTERNACIONALES <- "(Internacionales) \\((.*)\\) (.*)$"
+PAT_NACIONALES <- "(Nacionales) (.*)$"
+
+tarifas_historico <- importar_totales_tarifas() %>% 
+  mutate(nacionales = str_detect(header_1, "Nacionales")) %>% 
+  mutate(tipo = if_else(nacionales,
+                        str_match(header_1, PAT_NACIONALES)[,3],
+                        str_match(header_1, PAT_INTERNACIONALES)[,6])) %>% 
+  mutate(destino = if_else(nacionales, 
+                           NA_character_, 
+                           str_match(header_1, PAT_INTERNACIONALES)[,5]))
+  
+```
+
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(header_1 == "Nacionales Comunes") %>% 
+  filter(header_2 == "20 grs")
+
+```
+
+## Tarifas promedio Cartas Comunes de 20 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(header_1 == "Nacionales Comunes") %>% 
+  filter(header_2 == "20 grs")
+```
+
+
+## Tarifas promedio Cartas Comunes de 100 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Comunes de 100 grs. - Internacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Comunes de 500 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Comunes de 500 grs. – Internacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Registradas de 20 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Registradas de 20 grs. – Internacional (pesos con impuestos)
+
+
+## Tarifas promedio Cartas Registradas de 100 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Registradas de 100 grs. – Internacional (pesos con impuestos)
+
+
+## Tarifas promedio Cartas Registradas de 500 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas Registradas de 500 grs. – Internacional (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 20 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 20 grs. – Internacional (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 100 grs. – Nacional (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 100 grs. – Internacional (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 500 grs. – Nacional    (pesos con impuestos)
+
+## Tarifas promedio Cartas servicio Courier de 500 grs. – Internacional (pesos con impuestos)
 # Tarifas de Paquetes
 
 
