@@ -896,16 +896,58 @@ tarifas_historico %>%
 ## Tarifas promedio Cartas servicio Courier de 500 grs. – Nacional    (pesos con impuestos)
 
 ## Tarifas promedio Cartas servicio Courier de 500 grs. – Internacional (pesos con impuestos)
+
 # Tarifas de Paquetes
 
+## Tarifas promedio de Paquetes Registrados de 2 kg. – Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes Registrados de 2 kg. – Internacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes Registrados de 5 kg. – Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes Registrados de 5 kg. – Internacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Asegurados de 2 kg.– Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Asegurados de 5 kg.– Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Contra Reembolso de 2 kg.– Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Contra Reembolso de 5 kg.– Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Courier de 2 kg.– Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Courier de 2 kg. – Internacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Courier de 5kg. – Nacional (pesos con impuestos)
+
+## Tarifas promedio de Paquetes servicio Courier de 5 kg. – Internacional (pesos con impuestos)
 
 # Servicios Financieros
+
+## Total semestral de giros postales (miles)
+
+## Giros postales nacionales por operador (semestre I - 2020)
+
+## Giros postales Internacionales – Salida por operador (semestre I - 2020)
+
+## Giros postales Internacionales – Entrada por operador (semestre I - 2020)
 
 
 # Dimensión
 
+## Oficinas Postales abiertas al público por tipo (semestre I – 2020)
+
+## Oficinas Postales no abiertas al público por tipo (semestre I – 2020)
+
 # Envíos Por habitante
+
+## Total semestral de envíos por habitante
 
 # Ingresos del Sector
 
+## Facturación semestral del Sector Postal (millones de pesos corrientes)
+
 # Activo Fijo
+
+## Inversión Neta (semestre I - 2020)
