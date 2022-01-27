@@ -671,9 +671,11 @@ cartas_base_larga <- readRDS(here::here("data", "cartas_base_larga.rds"))
 cartas_base_larga %>%
     #filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1) %>%
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>% 
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) 
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
 ```
 
 ### Paquetes por operador (semestre I - 2020)
@@ -684,9 +686,12 @@ paquetes_base_larga <- readRDS(here::here("data", "paquetes_base_larga.rds"))
 paquetes_base_larga %>%
    # filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>% 
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
+
 ```
 
 ### Cartas Nacionales por operador (semestre I - 2020)
@@ -697,9 +702,12 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1) %>%
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>% 
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) 
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
+
 ```
 
 
@@ -709,9 +717,12 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>% 
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
+
 
 ```
 
@@ -719,10 +730,12 @@ paquetes_base_larga %>%
 ```{r}
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ss]al")) %>%
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>% 
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
@@ -732,9 +745,12 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ss]al")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
+
 ```
 
 ## Cartas Internacionales – Entrada - por operador (semestre I - 2020)
@@ -742,9 +758,11 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
@@ -753,9 +771,11 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
@@ -764,9 +784,11 @@ paquetes_base_larga %>%
 cartas_base_larga %>% 
     filter(header_1 == "Courier Nac - Hasta 20 g") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
@@ -776,9 +798,11 @@ cartas_base_larga %>%
 paquetes_base_larga %>% 
     filter(header_1 == "Courier Nac") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
@@ -787,9 +811,11 @@ paquetes_base_larga %>%
 cartas_base_larga %>% 
     filter(header_1 == "Courier Sal - Hasta 20 g") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 ## Paquetes Courier Internacionales – Salida - por operador (semestre I - 2020)
@@ -797,19 +823,23 @@ cartas_base_larga %>%
 paquetes_base_larga %>% 
     filter(header_1 == "Courier Sal") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 ## Cartas Courier Internacionales – Entrada - por operador (semestre I - 2020)
 ```{r}
 cartas_base_larga %>% 
     filter(header_1 == "Courier Ent - Hasta 20 g") %>%
-    filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 ## Paquetes Courier Internacionales – Entrada - por operador (semestre I - 2020)
@@ -817,15 +847,16 @@ cartas_base_larga %>%
 paquetes_base_larga %>% 
     filter(header_1 == "Courier Ent") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>% 
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric)
+    arrange(-numeric) %>% 
+    barras_horizontales(numeric, nombre)
 ```
 
 
 # Tarifas de Cartas
 
-## Tarifas promedio Cartas Comunes de 20 grs. – Nacional (pesos con impuestos)
 
 ```{r}
 
@@ -834,22 +865,31 @@ PAT_INTERNACIONALES <- "(Internacionales) \\((.*)\\) (.*)$"
 PAT_NACIONALES <- "(Nacionales) (.*)$"
 
 tarifas_historico <- importar_totales_tarifas() %>% 
-  mutate(nacionales = str_detect(header_1, "Nacionales")) %>% 
-  mutate(tipo = if_else(nacionales,
+  mutate(nacionales = if_else(str_detect(header_1, "Nacionales"),
+                              "Nacionales",
+                              "Internacionales")) %>% 
+  mutate(tipo = if_else(nacionales == "Nacionales",
                         str_match(header_1, PAT_NACIONALES)[,3],
-                        str_match(header_1, PAT_INTERNACIONALES)[,6])) %>% 
-  mutate(destino = if_else(nacionales, 
-                           NA_character_, 
-                           str_match(header_1, PAT_INTERNACIONALES)[,5]))
+                        str_match(header_1, PAT_INTERNACIONALES)[,4])) %>% 
+  mutate(destino = if_else(nacionales == "Internacionales", 
+                           str_match(header_1, PAT_INTERNACIONALES)[,3],
+                           NA_character_))
   
 ```
+
+## Tarifas promedio Cartas Comunes de 20 grs. – Nacional (pesos con impuestos)
+
 
 
 ```{r}
 tarifas_historico %>% 
   filter(header_0 == "Cartas") %>% 
-  filter(header_1 == "Nacionales Comunes") %>% 
-  filter(header_2 == "20 grs")
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  ylim(0, 80)
 
 ```
 
@@ -858,87 +898,477 @@ tarifas_historico %>%
 ```{r}
 tarifas_historico %>% 
   filter(header_0 == "Cartas") %>% 
-  filter(header_1 == "Nacionales Comunes") %>% 
-  filter(header_2 == "20 grs")
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line()
 ```
 
 
 ## Tarifas promedio Cartas Comunes de 100 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
 
 ## Tarifas promedio Cartas Comunes de 100 grs. - Internacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio Cartas Comunes de 500 grs. – Nacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "500 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
 
 ## Tarifas promedio Cartas Comunes de 500 grs. – Internacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>% 
+  filter(header_2 == "500 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio Cartas Registradas de 20 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio Cartas Registradas de 20 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
 
 
 ## Tarifas promedio Cartas Registradas de 100 grs. – Nacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio Cartas Registradas de 100 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 
 ## Tarifas promedio Cartas Registradas de 500 grs. – Nacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "500 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio Cartas Registradas de 500 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>% 
+  filter(header_2 == "500 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio Cartas servicio Courier de 20 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio Cartas servicio Courier de 20 grs. – Internacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "20 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio Cartas servicio Courier de 100 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
+
 
 ## Tarifas promedio Cartas servicio Courier de 100 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio Cartas servicio Courier de 500 grs. – Nacional    (pesos con impuestos)
 
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "100 grs") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
+
 ## Tarifas promedio Cartas servicio Courier de 500 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Cartas") %>% 
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>% 
+  filter(header_2 == "500 grs") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 # Tarifas de Paquetes
 
 ## Tarifas promedio de Paquetes Registrados de 2 kg. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Registrados") %>% 
+  filter(header_2=="2 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+
+
+```
+
 
 ## Tarifas promedio de Paquetes Registrados de 2 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Internacionales") %>% 
+  filter(tipo == "Registrados") %>% 
+  filter(header_2=="2 kg") %>% 
+  ggplot(aes(fecha, numeric, color=destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes Registrados de 5 kg. – Nacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Registrados") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio de Paquetes Registrados de 5 kg. – Internacional (pesos con impuestos)
 
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Internacionales") %>% 
+  filter(tipo == "Registrados") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric, color=destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
 ## Tarifas promedio de Paquetes servicio Asegurados de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Asegurados") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Asegurados de 5 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Asegurados") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Contra Reembolso de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Contra reembolso") %>% 
+  filter(header_2=="2 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Contra Reembolso de 5 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Contra reembolso") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Courier de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Courier") %>% 
+  filter(header_2=="2 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Courier de 2 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Internacionales") %>% 
+  filter(tipo == "Courier") %>% 
+  filter(header_2=="2 kg") %>% 
+  ggplot(aes(fecha, numeric, color=destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Courier de 5kg. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Nacionales") %>% 
+  filter(tipo == "Courier") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 ## Tarifas promedio de Paquetes servicio Courier de 5 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>% 
+  filter(header_0 == "Paquetes") %>% 
+  filter(nacionales=="Internacionales") %>% 
+  filter(tipo == "Courier") %>% 
+  filter(header_2=="5 kg") %>% 
+  ggplot(aes(fecha, numeric, color = destino)) + 
+  geom_line() + 
+  geom_point()
+```
+
 
 # Servicios Financieros
+```{r}
+giros_base_larga <- importar_giros_base_larga()
+```
 
 ## Total semestral de giros postales (miles)
+```{r}
+giros_base_larga %>% 
+  filter(header_1 %in% c("Giros int ent", "Giros int sal", "Giros nac")) %>% 
+  group_by( year(fecha), semester(fecha)) %>% 
+  summarize(sum(numeric) / 1e3)
+
+```
+
 
 ## Giros postales nacionales por operador (semestre I - 2020)
+```{r}
+giros_base_larga %>% 
+  filter(header_1 %in% c("Giros nac")) %>% 
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>% 
+  group_by(nombre) %>% 
+  summarize(numeric = sum(numeric)) %>% 
+  arrange(numeric) %>% 
+  filter(numeric > 0)
+```
+
 
 ## Giros postales Internacionales – Salida por operador (semestre I - 2020)
+```{r}
+giros_base_larga %>% 
+  filter(header_1 %in% c("Giros int sal")) %>% 
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>% 
+  group_by(nombre) %>% 
+  summarize(numeric = sum(numeric)) %>% 
+  arrange(numeric) %>% 
+  filter(numeric > 0)
+```
+
 
 ## Giros postales Internacionales – Entrada por operador (semestre I - 2020)
+```{r}
+giros_base_larga %>% 
+  filter(header_1 %in% c("Giros int ent")) %>% 
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>% 
+  group_by(nombre) %>% 
+  summarize(numeric = sum(numeric)) %>% 
+  arrange(numeric) %>% 
+  filter(numeric > 0)
+```
+
 
 
 # Dimensión
 
 ## Oficinas Postales abiertas al público por tipo (semestre I – 2020)
 
+```{r}
+dimensiones <- importar_dimension_base_larga()
+
+dimensiones %>% 
+  filter(year(fecha) == 2020, month(fecha) == 6) %>%
+  group_by(header_1) %>% 
+  summarize(numeric = sum(numeric)) %>% 
+  filter(header_1 %in% c("Of financ", "Of móviles",
+                         "Of perm pro", "Of perm ext")) %>% 
+  barras_horizontales(numeric, header_1)
+
+```
+
+
 ## Oficinas Postales no abiertas al público por tipo (semestre I – 2020)
+```{r}
+dimensiones %>% 
+  filter(year(fecha) == 2020, month(fecha) == 6) %>%
+  group_by(header_1) %>% 
+  summarize(numeric = sum(numeric)) %>% 
+  filter(header_1 %in% c("Of clasif", "Of interc")) %>% 
+  barras_horizontales(numeric, header_1)
+  
+```
+
 
 # Envíos Por habitante
 
