@@ -1290,7 +1290,8 @@ tarifas_historico %>%
 
 # Servicios Financieros
 ```{r}
-giros_base_larga <- importar_giros_base_larga()
+giros_base_larga <- readRDS(here::here("data", "giros_base_larga.rds"))
+
 ```
 
 ## Total semestral de giros postales (miles)
@@ -1373,10 +1374,61 @@ dimensiones %>%
 # Envíos Por habitante
 
 ## Total semestral de envíos por habitante
+```{r}
+
+paquetes_totales <- paquetes_base_larga %>% 
+  group_by(year=year(fecha)) %>% 
+  summarize(paquetes = sum(numeric))
+
+cartas_totales <- cartas_base_larga %>% 
+  group_by(year=year(fecha)) %>% 
+  summarize(cartas = sum(numeric))
+
+
+
+poblacion <- tibble(
+  year = 1999:2020,
+  pob= c(3335615,	3349155,	3351491,	3346677,	
+         3338399,	3341417,	3352355,	3358005,	
+         3358794,	3363060,	3378083,	3396706,	
+         3412636,	3426466,	3440157,	3453691,	
+         3467054,	3480222,  3493205,	3505985,
+         3518552,	3530912))
+
+envios_pre <- tibble(
+  year=1999:2013,
+  envios_pob = c(11.94,	13.54,	12.60,	
+                 12.71,	13.13,	12.75,	
+                 12.51,	13.14,	14.50,
+                 16.13,	17.75,	19.54,	
+                 24.82,	24.63,	34.55))
+
+envios_post <- paquetes_totales %>% 
+  filter(year>2013) %>% 
+  left_join(cartas_totales, by="year") %>% 
+  left_join(poblacion, by="year") %>% 
+  mutate(envios = paquetes + cartas) %>% 
+  mutate(envios_pob = (paquetes+cartas) / pob) %>% 
+  select(year, envios_pob)
+  
+envios <- bind_rows(envios_pre, envios_post)
+
+envios %>% 
+  ggplot(aes(year, envios_pob)) + 
+  geom_line() + 
+  geom_point()
+  
+
+```
+
 
 # Ingresos del Sector
 
 ## Facturación semestral del Sector Postal (millones de pesos corrientes)
+```{r}
+
+```
+
 
 # Activo Fijo
 
