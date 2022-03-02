@@ -69,7 +69,7 @@ library(tidyverse)
 library(lubridate)
 
 theme_set(
-  theme_minimal(base_family="Agency FB", base_size = 14) +
+  theme_minimal(base_family="Agency FB", base_size = 16) +
   theme(plot.background=element_rect(fill="#EEEEEE",
                                      color="white"),
           axis.line.x=element_blank(),
@@ -697,11 +697,14 @@ importar_totales_trafico(c("DW", "DX"),
 ```{r}
 cartas_base_larga <- readRDS(here::here("data", "cartas_base_larga.rds"))
 
-# Colapsar chicos
 cartas_base_larga %>%
     #filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
-    filter(year(fecha)==2020, semester(fecha)==1) %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1) %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
     arrange(numeric) %>%
@@ -714,13 +717,17 @@ cartas_base_larga %>%
 paquetes_base_larga <- readRDS(here::here("data", "paquetes_base_larga.rds"))
 
 paquetes_base_larga %>%
-   # filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
-    filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+   filter(year(fecha)==2020, semester(fecha)==1) %>% 
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
+  
 
 ```
 
@@ -732,10 +739,14 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1) %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 
 ```
@@ -747,10 +758,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 
 
@@ -762,9 +777,14 @@ cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ss]al")) %>%
     mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -775,10 +795,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ss]al")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 
 ```
@@ -788,10 +812,14 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -801,10 +829,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -814,10 +846,14 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(header_1 == "Courier Nac - Hasta 20 g") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -828,10 +864,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(header_1 == "Courier Nac") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -841,10 +881,14 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(header_1 == "Courier Sal - Hasta 20 g") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -853,10 +897,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(header_1 == "Courier Sal") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -865,10 +913,14 @@ paquetes_base_larga %>%
 cartas_base_larga %>%
     filter(header_1 == "Courier Ent - Hasta 20 g") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
@@ -877,10 +929,14 @@ cartas_base_larga %>%
 paquetes_base_larga %>%
     filter(header_1 == "Courier Ent") %>%
     filter(year(fecha)==2020, semester(fecha)==1)  %>%
-    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>% 
+    mutate(prop = numeric/sum(numeric)) %>% 
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto")) %>%
+    # Otra vez para juntar los "otros"
     group_by(nombre) %>%
     summarize(numeric=sum(numeric)) %>%
-    arrange(-numeric) %>%
+    arrange(numeric) %>%
     barras_horizontales(numeric, nombre)
 ```
 
