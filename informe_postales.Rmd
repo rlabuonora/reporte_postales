@@ -1298,8 +1298,9 @@ giros_base_larga <- readRDS(here::here("data", "giros_base_larga.rds"))
 ```{r}
 giros_base_larga %>% 
   filter(header_1 %in% c("Giros int ent", "Giros int sal", "Giros nac")) %>% 
-  group_by( year(fecha), semester(fecha)) %>% 
-  summarize(sum(numeric) / 1e3)
+  group_by(year=year(fecha), semester=semester(fecha)) %>% 
+  summarize(numeric = sum(numeric) / 1e3) %>% 
+  serie_historica_semestral_flujo(numeric)
 
 ```
 
@@ -1312,7 +1313,8 @@ giros_base_larga %>%
   group_by(nombre) %>% 
   summarize(numeric = sum(numeric)) %>% 
   arrange(numeric) %>% 
-  filter(numeric > 0)
+  filter(numeric > 0) %>% 
+  barras_horizontales(numeric, nombre)
 ```
 
 
@@ -1324,7 +1326,8 @@ giros_base_larga %>%
   group_by(nombre) %>% 
   summarize(numeric = sum(numeric)) %>% 
   arrange(numeric) %>% 
-  filter(numeric > 0)
+  filter(numeric > 0) %>% 
+  barras_horizontales(numeric, nombre)
 ```
 
 
@@ -1336,7 +1339,8 @@ giros_base_larga %>%
   group_by(nombre) %>% 
   summarize(numeric = sum(numeric)) %>% 
   arrange(numeric) %>% 
-  filter(numeric > 0)
+  filter(numeric > 0)  %>% 
+  barras_horizontales(numeric, nombre)
 ```
 
 
@@ -1346,9 +1350,14 @@ giros_base_larga %>%
 ## Oficinas Postales abiertas al público por tipo (semestre I – 2020)
 
 ```{r}
-dimensiones <- importar_dimension_base_larga()
+dimension <- readRDS(here::here("data", "dimension_base_larga.rds"))
 
-dimensiones %>% 
+```
+
+
+```{r}
+
+dimension %>% 
   filter(year(fecha) == 2020, month(fecha) == 6) %>%
   group_by(header_1) %>% 
   summarize(numeric = sum(numeric)) %>% 
@@ -1361,7 +1370,7 @@ dimensiones %>%
 
 ## Oficinas Postales no abiertas al público por tipo (semestre I – 2020)
 ```{r}
-dimensiones %>% 
+dimension %>% 
   filter(year(fecha) == 2020, month(fecha) == 6) %>%
   group_by(header_1) %>% 
   summarize(numeric = sum(numeric)) %>% 

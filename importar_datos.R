@@ -14,4 +14,9 @@ saveRDS(paquetes_base_larga, here::here("data", "paquetes_base_larga.rds"))
 giros_base_larga <- importar_giros_base_larga()
 saveRDS(giros_base_larga, here::here("data", "giros_base_larga.rds"))
 
+# Oficinas
+dimension <- importar_dimension_base_larga()
+saveRDS(dimension, here::here("data", "dimension_base_larga.rds"))
+
+
 
