@@ -4,7 +4,8 @@ author: "URSEC"
 output:
   pagedown::html_paged:
     toc: true
-    toc_depth: 1
+    number_sections: true
+    toc_depth: 2
     css:
       - "estilos/ursec-default-page.css"
       - "estilos/ursec-default.css"
@@ -48,6 +49,8 @@ abstract: |
   
   ![](estilos/cc.png)
   
+  Usted puede
+  
 ---
 
 ```{r setup, include=FALSE}
@@ -58,63 +61,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       fig.width = 7, 
                       fig.height = 4.5)
 
-FECHA_INFORME_ANUAL <-  as.Date("2020-12-01")
-FECHA_TITULO_STOCK <-  "Diciembre 2020"
-FECHA_TITULO_FLUJO <-  "año 2020"
-
-library(galeriaPostales)
-library(galeriaVis)
-
-library(tidyverse)
-library(lubridate)
-
-theme_set(
-  theme_minimal(base_family="Agency FB", base_size = 16) +
-  theme(plot.background=element_rect(fill="#EEEEEE",
-                                     color="white"),
-          axis.line.x=element_blank(),
-          axis.ticks=element_blank(),
-          text=element_text(family="Agency FB")))
-
-pal <- RColorBrewer::brewer.pal(n = 8, name = "Blues")
-
-library(extrafont)
-loadfonts()
-
-# Helpers
-
-flujo_semestral <- function(df) {
-  df %>% 
-    group_by(year=year(fecha), semester=semester(fecha)) %>%
-    summarize(numeric=round(sum(numeric))) %>% 
-    ungroup()
-}
-
-
-helper_serie <- function() {
-  # Capas comunes a las series
-  list(
-    scale_x_date(date_breaks= "1 months", date_labels = "%m-%y"), 
-    ylim(c(0, NA)),
-    labs(y="$", x="")
-  )
-}
-
-serie_historica <- function(df) {
-  ggplot(df, aes(fecha, numeric)) +
-    geom_line(color=pal[5]) +
-    geom_point(color =pal[5]) +
-    helper_serie()
-}
-
-serie_historica_2 <- function(df) {
-  ggplot(df, aes(fecha, numeric, color = destino)) +
-    geom_line() +
-    geom_point() +
-    helper_serie() + 
-    scale_color_discrete("") + 
-    theme(legend.position = "bottom")
-}
+source("setup.R", local = knitr::knit_global())
 
 ```
 
@@ -351,7 +298,7 @@ importar_totales_trafico("H") %>%
 ```
 
 
-#### Cartas Comunes Nacionales (semestre I - 2020)
+### Cartas Comunes Nacionales (semestre I - 2020)
 ```{r}
 importar_totales_trafico(c("C", "D", "E", "F", "G"),
                          header_row=list(cabezal_1=4)) %>%
@@ -362,7 +309,7 @@ importar_totales_trafico(c("C", "D", "E", "F", "G"),
 
 ```
 
-#### Total semestral de Cartas Comunes Internacionales – Salida (en miles)
+### Total semestral de Cartas Comunes Internacionales – Salida (en miles)
 ```{r}
 importar_totales_trafico("M")  %>%
   flujo_semestral() %>%
@@ -370,7 +317,7 @@ importar_totales_trafico("M")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-#### Cartas Comunes Internacionales – Salida (semestre I - 2020)
+### Cartas Comunes Internacionales – Salida (semestre I - 2020)
 
 ```{r}
 importar_totales_trafico(c("I", "J", "K", "L"),
@@ -382,8 +329,7 @@ importar_totales_trafico(c("I", "J", "K", "L"),
 
 ```
 
-
-#### Total semestral de Cartas Comunes Internacionales – Entrada (en miles)
+### Total semestral de Cartas Comunes Internacionales – Entrada (en miles)
 ```{r}
 importar_totales_trafico("R")  %>%
   flujo_semestral() %>%
@@ -392,7 +338,7 @@ importar_totales_trafico("R")  %>%
 ```
 
 
-#### Cartas Comunes Internacionales – Entrada (semestre I - 2020)
+### Cartas Comunes Internacionales – Entrada (semestre I - 2020)
 ```{r}
 importar_totales_trafico(c("N", "O", "P", "Q"),
                          header_row=list(cabezal_1=4)) %>%

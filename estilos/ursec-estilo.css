@@ -8,6 +8,9 @@ body {
   font-family: "Agency FB";
 }
 
+h3 {
+  text-align: center;
+}
 
 
 @page :first{
