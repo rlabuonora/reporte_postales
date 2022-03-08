@@ -6,3 +6,15 @@ output: html_document
 # Activo Fijo
 
 ### Inversión Neta (Semestre I - 2020)
+
+```{r}
+tribble(
+  ~tipo, ~valor,
+  "Otros", 7502294,
+  "Maquinarias y Equipos", 706734,
+  "Edificios, construcciones y terrenos", 47595850,
+  "Intangibles", 4249189) %>%
+  barras_horizontales(valor, tipo)
+
+```
+

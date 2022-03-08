@@ -45,11 +45,12 @@ abstract: |
   Diseño de Portada: Enrique Ros\
   Foto de portada: Chan Lin (https://unsplash.com/@lowkeyhahaha)
   
-  **Licencia**
+  **Licencia Creative Commons**:
   
-  ![](estilos/cc.png)
-  
-  Usted puede
+  **Compartir** Copiar y redistribuir materiales en cualquier medio o formato.
+  **Adaptar** Remezclar transformar y construir sobre el material para cualquier propósito, inculos con fines comerciales. El licenciante no puede revocar estas libertades, siempre y cuando siga los términos de la licencia.
+  **Atribución** Usted debe dar crédito de manera adecuada, brindar un enlace a la licencia, e indicar si se han realizado cambios. Puede hacerlo en cualquier forma razonable, pero no de forma tal que sugiera que usted o su uso tienen el apoyo de la licenciante.
+  **Compartir Igual** Si remezcla, transforma o crea a partir del material, debe distribuir su contribución bajo la lamisma licencia del original.
   
 ---
 
@@ -64,19 +65,19 @@ knitr::opts_chunk$set(echo = FALSE,
 source("setup.R", local = knitr::knit_global())
 
 fig_height_small <- 4
+fig_height_extra_small <- 3.5
+
 
 partes <- c(
             '01-envios_postales.Rmd',
             '02-cartas_paquetes.Rmd',
             '03-tarifas_cartas.Rmd',
-            # '04-tarifas_paquetes.Rmd',
-            # '05-servicios_financieros.Rmd',
-            # '06-dimension.Rmd',
-            # '07-envios_por_habitante.Rmd',
-            # '08-ingresos.Rmd',
+            '04-tarifas_paquetes.Rmd',
+            '05-servicios_financieros.Rmd',
+            '06-dimension.Rmd',
+            '07-envios_por_habitante.Rmd',
+            '08-ingresos.Rmd',
             '09-activos.Rmd')
-
-
 ```
 
 

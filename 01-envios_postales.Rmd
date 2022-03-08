@@ -18,7 +18,20 @@ pjh <- importar_totales_trafico("CF", header_row = 3) %>%
   mutate(numeric = numeric/1e6,
          operador="PJH")
 
-
+bind_rows(operadores, pjh) %>% 
+  arrange(year, semester, desc(operador)) %>% 
+  mutate(fecha = glue("{year  %% 100}-{semester}")) %>% 
+  group_by(fecha) %>% 
+  mutate(y_pos = dplyr::lag(numeric, default = 0) + numeric/2) %>% 
+  ungroup() %>% 
+  ggplot(aes(fecha, numeric, fill=operador)) + 
+  geom_col() +
+  geom_text(aes(label=scales::number_format(accuracy=1)(numeric), y=y_pos),
+            color="white") + 
+  scale_fill_manual("", values=c(pal[5], paleta_cats[["rojo"]])) +
+  labs(x="", y="") +
+  theme(legend.position = "bottom",
+        axis.text.x    = ggplot2::element_text(vjust=6))
 ```
 
 ### Total semestral de Paquetes enviados (en miles)

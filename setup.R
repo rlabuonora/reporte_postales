@@ -10,6 +10,7 @@ library(galeriaVis)
 library(tidyverse)
 library(lubridate)
 library(extrafont)
+library(glue)
 
 
 # Cargar fuente
@@ -50,7 +51,8 @@ serie_historica <- function(df) {
   ggplot(df, aes(fecha, numeric)) +
     geom_line(color=pal[5]) +
     geom_point(color =pal[5]) +
-    helper_serie()
+    helper_serie() + 
+    theme(panel.grid.major.y = element_line(color="gray80"))
 }
 
 serie_historica_2 <- function(df) {
@@ -61,3 +63,12 @@ serie_historica_2 <- function(df) {
     scale_color_discrete("") + 
     theme(legend.position = "bottom")
 }
+
+paleta_cats <- c(
+  "azul" = "#80b1d3",
+  "rojo" = "#fb8072",
+  "verde" = "#8dd3c7",
+  "violeta" = "#decbe4",
+  "naranja" = "#fed9a6",
+  "amarillo" = "#ffffcc"
+)

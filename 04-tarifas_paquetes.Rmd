@@ -8,7 +8,7 @@ output: html_document
 # Tarifas de Paquetes
 
 ### Tarifas promedio de Paquetes Registrados de 2 kg. – Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -22,7 +22,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes Registrados de 2 kg. – Internacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Internacionales") %>%
@@ -35,7 +35,7 @@ tarifas_historico %>%
 
 ### Tarifas promedio de Paquetes Registrados de 5 kg. – Nacional (pesos con impuestos)
 
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -48,7 +48,7 @@ tarifas_historico %>%
 
 ### Tarifas promedio de Paquetes Registrados de 5 kg. – Internacional (pesos con impuestos)
 
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Internacionales") %>%
@@ -60,7 +60,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Asegurados de 2 kg.– Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -72,7 +72,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Asegurados de 5 kg.– Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -84,7 +84,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Contra Reembolso de 2 kg.– Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -96,7 +96,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Contra Reembolso de 5 kg.– Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -108,7 +108,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Courier de 2 kg.– Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -120,7 +120,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Courier de 2 kg. – Internacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Internacionales") %>%
@@ -132,7 +132,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Courier de 5kg. – Nacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Nacionales") %>%
@@ -144,7 +144,7 @@ tarifas_historico %>%
 
 
 ### Tarifas promedio de Paquetes servicio Courier de 5 kg. – Internacional (pesos con impuestos)
-```{r}
+```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Paquetes") %>%
   filter(nacionales=="Internacionales") %>%
