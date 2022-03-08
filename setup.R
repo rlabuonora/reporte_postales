@@ -11,6 +11,7 @@ library(tidyverse)
 library(lubridate)
 library(extrafont)
 
+
 # Cargar fuente
 loadfonts()
 

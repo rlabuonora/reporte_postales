@@ -6,3 +6,17 @@ output: html_document
 # Ingresos del Sector
 
 ### Facturación semestral del Sector Postal (millones de pesos corrientes)
+
+```{r}
+tibble(
+  year=rep(2013:2021, each=2),
+  semester = rep(c(1, 2), 9),
+  ingresos = c(1059785325, 1127934419, 1224089204, 1289181373,
+               1384192119, 1453885728, 1470227016, 1527799298,
+               1565830448, 1632470774, 1437005792, 1495784891,
+               1516621958, 1622888579, 1552333263, 1749129598,
+               2684741999, 2705496344)) %>% 
+  mutate(ingresos=ingresos/1e6) %>% 
+  serie_historica_semestral_flujo(ingresos)
+```
+

@@ -69,11 +69,11 @@ partes <- c(
             '01-envios_postales.Rmd',
             '02-cartas_paquetes.Rmd',
             '03-tarifas_cartas.Rmd',
-            '04-tarifas_paquetes.Rmd',
-            '05-servicios_financieros.Rmd',
-            '06-dimension.Rmd',
-            '07-envios_por_habitante.Rmd',
-            '08-ingresos.Rmd',
+            # '04-tarifas_paquetes.Rmd',
+            # '05-servicios_financieros.Rmd',
+            # '06-dimension.Rmd',
+            # '07-envios_por_habitante.Rmd',
+            # '08-ingresos.Rmd',
             '09-activos.Rmd')
 
 
