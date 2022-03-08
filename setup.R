@@ -41,7 +41,7 @@ helper_serie <- function() {
   list(
     scale_x_date(date_breaks= "1 months", date_labels = "%m-%y"), 
     ylim(c(0, NA)),
-    labs(y="$", x="")
+    labs(y="", x="")
   )
 }
 

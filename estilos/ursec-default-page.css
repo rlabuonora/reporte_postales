@@ -166,8 +166,7 @@ h2 {
 
 /* page breaks; aka CSS fragmentation */
 .level1 {
-  break-before: recto;
-  page: chapter;
+  break-before: page;
 }
 .front-matter-container .level1 {
   page: frontmatter;
@@ -239,3 +238,5 @@ caption {
 
   }
 }
+
+

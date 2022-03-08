@@ -1,0 +1,37 @@
+---
+title: "dimension"
+output: html_document
+---
+# Dimensión
+
+### Oficinas Postales abiertas al público por tipo (Semestre I – 2020)
+
+```{r}
+dimension <- readRDS(here::here("data", "dimension_base_larga.rds"))
+
+```
+
+
+```{r fig.height=fig_height_small}
+
+dimension %>%
+  filter(year(fecha) == 2020, month(fecha) == 6) %>%
+  group_by(header_1) %>%
+  summarize(numeric = sum(numeric)) %>%
+  filter(header_1 %in% c("Of financ", "Of móviles",
+                         "Of perm pro", "Of perm ext")) %>%
+  barras_horizontales(numeric, header_1)
+
+```
+
+
+### Oficinas Postales no abiertas al público por tipo (Semestre I – 2020)
+```{r fig.height=fig_height_small}
+dimension %>%
+  filter(year(fecha) == 2020, month(fecha) == 6) %>%
+  group_by(header_1) %>%
+  summarize(numeric = sum(numeric)) %>%
+  filter(header_1 %in% c("Of clasif", "Of interc")) %>%
+  barras_horizontales(numeric, header_1)
+
+```

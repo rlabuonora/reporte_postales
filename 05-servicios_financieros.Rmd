@@ -1,0 +1,59 @@
+---
+title: "servicios_financieros"
+output: html_document
+---
+
+# Servicios Financieros
+```{r}
+giros_base_larga <- readRDS(here::here("data", "giros_base_larga.rds"))
+
+```
+
+### Total semestral de giros postales (miles)
+```{r fig.height=fig_height_small}
+giros_base_larga %>%
+  filter(header_1 %in% c("Giros int ent", "Giros int sal", "Giros nac")) %>%
+  group_by(year=year(fecha), semester=semester(fecha)) %>%
+  summarize(numeric = sum(numeric) / 1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+
+```
+
+
+### Giros postales nacionales por operador (Semestre I - 2020)
+```{r fig.height=fig_height_small}
+giros_base_larga %>%
+  filter(header_1 %in% c("Giros nac")) %>%
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>%
+  group_by(nombre) %>%
+  summarize(numeric = sum(numeric)) %>%
+  arrange(numeric) %>%
+  filter(numeric > 0) %>%
+  barras_horizontales(numeric, nombre)
+```
+
+
+### Giros postales Internacionales (Salida) por operador (Semestre I - 2020)
+```{r fig.height=fig_height_small}
+giros_base_larga %>%
+  filter(header_1 %in% c("Giros int sal")) %>%
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>%
+  group_by(nombre) %>%
+  summarize(numeric = sum(numeric)) %>%
+  arrange(numeric) %>%
+  filter(numeric > 0) %>%
+  barras_horizontales(numeric, nombre)
+```
+
+
+### Giros postales Internacionales (Entrada)  por operador (Semestre I - 2020)
+```{r fig.height=fig_height_small}
+giros_base_larga %>%
+  filter(header_1 %in% c("Giros int ent")) %>%
+  filter(year(fecha) == 2020, semester(fecha) == 1) %>%
+  group_by(nombre) %>%
+  summarize(numeric = sum(numeric)) %>%
+  arrange(numeric) %>%
+  filter(numeric > 0)  %>%
+  barras_horizontales(numeric, nombre)
+```

@@ -1,0 +1,8 @@
+---
+title: "ingresos"
+output: html_document
+---
+
+# Activo Fijo
+
+### Inversión Neta (Semestre I - 2020)

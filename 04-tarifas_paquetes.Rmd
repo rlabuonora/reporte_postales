@@ -1,0 +1,155 @@
+---
+title: "tarifas_paquetes"
+output: html_document
+---
+
+
+
+# Tarifas de Paquetes
+
+### Tarifas promedio de Paquetes Registrados de 2 kg. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registrados") %>%
+  filter(header_2=="2 kg")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+
+
+```
+
+
+### Tarifas promedio de Paquetes Registrados de 2 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registrados") %>%
+  filter(header_2=="2 kg")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio de Paquetes Registrados de 5 kg. – Nacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registrados") %>%
+  filter(header_2=="5 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes Registrados de 5 kg. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registrados") %>%
+  filter(header_2=="5 kg")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio de Paquetes servicio Asegurados de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Asegurados") %>%
+  filter(header_2=="5 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Asegurados de 5 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Asegurados") %>%
+  filter(header_2=="5 kg")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Contra Reembolso de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Contra reembolso") %>%
+  filter(header_2=="2 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Contra Reembolso de 5 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Contra reembolso") %>%
+  filter(header_2=="5 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Courier de 2 kg.– Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2=="2 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Courier de 2 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2=="2 kg")%>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio de Paquetes servicio Courier de 5kg. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2=="5 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio de Paquetes servicio Courier de 5 kg. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Paquetes") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2=="5 kg") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```

@@ -1,0 +1,638 @@
+---
+title: "cartas_paquetes"
+output: html_document
+---
+# Cartas y Paquetes
+
+## Cartas Comunes
+
+### Total semestral de Cartas Comunes Nacionales (en millones)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("H") %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e6) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Cartas Comunes Nacionales (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("C", "D", "E", "F", "G"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+
+```
+
+### Total semestral de Cartas Comunes Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico("M")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Cartas Comunes Internacionales (Salida) (Semestre I - 2020)
+
+```{r}
+importar_totales_trafico(c("I", "J", "K", "L"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+
+```
+
+### Total semestral de Cartas Comunes Internacionales (Entrada)  (en miles)
+```{r}
+importar_totales_trafico("R")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Cartas Comunes Internacionales (Entrada)  (Semestre I - 2020)
+```{r}
+importar_totales_trafico(c("N", "O", "P", "Q"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+## Paquetes Comunes {.page-break-before}
+
+### Total semestral de Paquetes Comunes Nacionales (en miles)
+
+```{r fig.height = fig_height_small}
+
+nota <- "Nota: A partir de la entrada en vigencia del artículo 16 del Decreto N° 209/017 del 04/08/2017 \n(año 2018 para los informes de URSEC), se establece que todos los paquetesque se cursen serán \nregistrados y deberán contar con trazabilidad desde su imposición (o admisión) hasta la entrega al destinatario."
+
+importar_totales_trafico("CI")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)  +
+  labs(caption=nota) +
+  theme(plot.caption = element_text(vjust=7))
+```
+
+### Total semestral de Paquetes Comunes Internacionales - Salida (en miles)
+
+```{r fig.height = fig_height_small}
+importar_totales_trafico("CL")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric) +
+  labs(caption=nota) +
+  theme(plot.caption = element_text(vjust=7))
+```
+
+### Total semestral de Paquetes Comunes Internacionales - Entrada (en miles)
+```{r}
+importar_totales_trafico("CO")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric) +
+  labs(caption=nota) +
+  theme(plot.caption = element_text(vjust=7))
+```
+
+## Cartas Registradas {.page-break-before}
+
+### Total semestral de Cartas Registradas Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("AL")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Cartas Registradas Nacionales (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("AH", "AI", "AJ", "AK"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Cartas Registradas Internacionales - Salida (en miles)
+```{r}
+importar_totales_trafico("AQ")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Cartas Registradas Internacionales - Salida (Semestre I - 2020)
+```{r}
+importar_totales_trafico(c("AM", "AN", "AO", "AP"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Cartas Registradas Internacionales - Entrada (en miles)
+```{r}
+importar_totales_trafico("AV")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Cartas Registradas Internacionales - Entrada (Semestre I - 2020)
+```{r}
+importar_totales_trafico(c("AR", "AS", "AT", "AU"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+## Paquetes Registrados {.page-break-before}
+
+### Total semestral de Paquetes Registrados Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("CR")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Paquetes Registrados Nacionales (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("CP", "CQ"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Paquetes Registrados Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico("CU")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Paquetes Registrados Internacionales (Salida) (Semestre I - 2020)
+```{r}
+importar_totales_trafico(c("CS", "CT"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Paquetes Registrados Internacionales (Entrada)  (en miles)
+```{r}
+
+importar_totales_trafico("CX")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Paquetes Registrados Internacionales (Entrada)  (Semestre I - 2020)
+```{r}
+importar_totales_trafico(c("CV", "CW"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+## Cartas Aseguradas {.page-break-before}
+
+### Total semestral de Cartas Aseguradas Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("BA")  %>%
+  flujo_semestral() %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Cartas Aseguradas Nacionales (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("AW", "AX", "AY", "AZ"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+
+```
+
+## Cartas Servicio Courier {.page-break-before}
+
+### Total semestral de Cartas Courier Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("BP")  %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Cartas Courier Nacionales (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("BL", "BM", "BN", "BO"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Cartas Courier Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico("BU")  %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Cartas Courier Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico(c("BQ", "BR", "BS", "BT"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+### Total semestral de Cartas Courier Internacionales (Entrada)  (en miles)
+
+```{r}
+importar_totales_trafico("BZ")  %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Cartas Courier Internacionales (Entrada)  (en miles)
+```{r}
+importar_totales_trafico(c("BV", "BW", "BX", "BY"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+## Paquetes y Servicios Courier {.page-break-before}
+
+### Total semestral de Paquetes Courier Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico("DS")  %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Total semestral de Paquetes Courier Nacionales (en miles)
+```{r fig.height = fig_height_small}
+importar_totales_trafico(c("DQ", "DR"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+### Total semestral de Paquetes Courier Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico("DV")  %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+### Paquetes Courier Internacionales (Salida) (en miles)
+```{r}
+importar_totales_trafico(c("DT", "DU"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+### Total semestral de Paquetes Courier Internacionales (Entrada)  (en miles)
+```{r}
+importar_totales_trafico("DY") %>%
+  flujo_semestral() %>%
+  filter(year>= 2016) %>%
+  mutate(numeric=numeric/1e3) %>%
+  serie_historica_semestral_flujo(numeric)
+```
+
+
+### Paquetes Courier Internacionales (Entrada)  (en miles)
+```{r}
+importar_totales_trafico(c("DW", "DX"),
+                         header_row=list(cabezal_1=4)) %>%
+  filter(year(fecha)==2020, semester(fecha)==1) %>%
+  group_by(cabezal_1) %>%
+  summarize(numeric=round(sum(numeric))) %>%
+  barras_horizontales(numeric, cabezal_1)
+```
+
+
+
+## Envíos por Operador {.page-break-before}
+
+### Cartas por operador (Semestre I - 2020)
+```{r fig.height = fig_height_small}
+
+nota_2 <- "(*) Operadores Postales con una participación de mercado individual inferior al 2%."
+
+cartas_base_larga <- readRDS(here::here("data", "cartas_base_larga.rds"))
+
+cartas_base_larga %>%
+    #filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```
+
+### Paquetes por operador (Semestre I - 2020)
+
+```{r fig.height = fig_height_small}
+paquetes_base_larga <- readRDS(here::here("data", "paquetes_base_larga.rds"))
+
+paquetes_base_larga %>%
+   filter(year(fecha)==2020, semester(fecha)==1) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre) +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+
+
+```
+
+### Cartas Nacionales por operador (Semestre I - 2020)
+
+```{r}
+
+# Colapsar chicos
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1) %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre) +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+
+```
+
+
+### Paquetes Nacionales por operador (Semestre I - 2020)
+
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Nn]ac")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
+
+
+```
+
+### Cartas Internacionales (Salida) - por operador (Semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ss]al")) %>%
+    mutate(nombre = fct_lump_n(nombre, n = 10, w=numeric, other_level = "Otros")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```
+
+
+### Paquetes Internacionales (Salida) - por operador (Semestre I - 2020)
+
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ss]al")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre) +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+
+```
+
+### Cartas Internacionales (Entrada)  - por operador (Semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
+```
+
+
+### Paquetes Internacionales (Entrada)  - por operador (Semestre I - 2020)
+```{r}
+paquetes_base_larga %>%
+    filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```
+
+
+### Cartas Courier Nacionales por operador (Semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(header_1 == "Courier Nac - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
+```
+
+
+
+### Paquetes Courier Nacionales por operador (Semestre I - 2020)
+```{r}
+paquetes_base_larga %>%
+    filter(header_1 == "Courier Nac") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```
+
+
+### Cartas Courier Internacionales (Salida) - por operador (Semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(header_1 == "Courier Sal - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
+```
+
+### Paquetes Courier Internacionales (Salida) - por operador (Semestre I - 2020)
+```{r}
+paquetes_base_larga %>%
+    filter(header_1 == "Courier Sal") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```
+
+### Cartas Courier Internacionales (Entrada)  - por operador (Semestre I - 2020)
+```{r}
+cartas_base_larga %>%
+    filter(header_1 == "Courier Ent - Hasta 20 g") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)
+```
+
+### Paquetes Courier Internacionales (Entrada)  - por operador (Semestre I - 2020)
+```{r}
+paquetes_base_larga %>%
+    filter(header_1 == "Courier Ent") %>%
+    filter(year(fecha)==2020, semester(fecha)==1)  %>%
+     group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    mutate(prop = numeric/sum(numeric)) %>%
+    mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>%
+    # Otra vez para juntar los "otros"
+    group_by(nombre) %>%
+    summarize(numeric=sum(numeric)) %>%
+    arrange(numeric) %>%
+    barras_horizontales(numeric, nombre)  +
+    labs(caption=nota_2) +
+    theme(plot.caption = element_text(vjust=6))
+```

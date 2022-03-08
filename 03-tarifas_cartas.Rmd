@@ -1,0 +1,257 @@
+---
+title: "tarifas_cartas"
+output: html_document
+---
+# Tarifas de Cartas
+
+
+```{r}
+
+# Pattern para parsear la columna header_1
+PAT_INTERNACIONALES <- "(Internacionales) \\((.*)\\) (.*)$"
+PAT_NACIONALES <- "(Nacionales) (.*)$"
+
+tarifas_historico <- importar_totales_tarifas() %>%
+  mutate(nacionales = if_else(str_detect(header_1, "Nacionales"),
+                              "Nacionales",
+                              "Internacionales")) %>%
+  mutate(tipo = if_else(nacionales == "Nacionales",
+                        str_match(header_1, PAT_NACIONALES)[,3],
+                        str_match(header_1, PAT_INTERNACIONALES)[,4])) %>%
+  mutate(destino = if_else(nacionales == "Internacionales",
+                           str_match(header_1, PAT_INTERNACIONALES)[,3],
+                           NA_character_))
+
+```
+
+### Tarifas Cartas Comunes de 20 grs. – Nacional
+
+
+```{r fig.height = fig_height_small}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica() +
+  labs(caption="Tarifas en pesos con impuestos")
+
+```
+
+### Tarifas promedio Cartas Comunes de 20 grs. – Internacional (pesos con impuestos)
+
+```{r fig.height = fig_height_small}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio Cartas Comunes de 100 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+### Tarifas promedio Cartas Comunes de 100 grs. - Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio Cartas Comunes de 500 grs. – Nacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "500 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+### Tarifas promedio Cartas Comunes de 500 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Comunes") %>%
+  filter(header_2 == "500 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio Cartas Registradas de 20 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio Cartas Registradas de 20 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio Cartas Registradas de 100 grs. – Nacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio Cartas Registradas de 100 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "100 grs")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+
+### Tarifas promedio Cartas Registradas de 500 grs. – Nacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "500 grs")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio Cartas Registradas de 500 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Registradas") %>%
+  filter(header_2 == "500 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio Cartas servicio Courier de 20 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+### Tarifas promedio Cartas servicio Courier de 20 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "20 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
+
+
+### Tarifas promedio Cartas servicio Courier de 100 grs. – Nacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+
+
+### Tarifas promedio Cartas servicio Courier de 100 grs. – Internacional (pesos con impuestos)
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+
+```
+
+
+### Tarifas promedio Cartas servicio Courier de 500 grs. – Nacional    (pesos con impuestos)
+
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Nacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "100 grs") %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica()
+```
+
+
+
+### Tarifas promedio Cartas servicio Courier de 500 grs. – Internacional (pesos con impuestos)
+
+```{r}
+tarifas_historico %>%
+  filter(header_0 == "Cartas") %>%
+  filter(nacionales=="Internacionales") %>%
+  filter(tipo == "Courier") %>%
+  filter(header_2 == "500 grs")  %>%
+  mutate(fecha=as.Date(fecha)) %>%
+  serie_historica_2()
+```
