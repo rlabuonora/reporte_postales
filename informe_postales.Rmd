@@ -4,7 +4,7 @@ author: "URSEC"
 output:
   pagedown::html_paged:
     toc: true
-    number_sections: true
+    number_sections: false
     toc_depth: 2
     css:
       - "estilos/ursec-default-page.css"

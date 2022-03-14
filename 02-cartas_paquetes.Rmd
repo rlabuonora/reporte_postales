@@ -76,7 +76,7 @@ nota <- "Nota: A partir de la entrada en vigencia del artículo 16 del Decreto N
 
 caption <- list(
   labs(caption=nota),
-  theme(plot.caption = element_text(vjust=12, size = 8))
+  theme(plot.caption = element_text(vjust=12, size = 9))
   
 )
 
@@ -266,7 +266,7 @@ importar_totales_trafico(c("BL", "BM", "BN", "BO"),
 ```
 
 ### Total semestral de Cartas Courier Internacionales (Salida) (en miles)
-```{r}
+```{r fig.height = fig_height_small}
 importar_totales_trafico("BU")  %>%
   flujo_semestral() %>%
   filter(year>= 2016) %>%
@@ -275,7 +275,7 @@ importar_totales_trafico("BU")  %>%
 ```
 
 ### Cartas Courier Internacionales (Salida) (en miles)
-```{r}
+```{r fig.height = fig_height_small}
 importar_totales_trafico(c("BQ", "BR", "BS", "BT"),
                          header_row=list(cabezal_1=4)) %>%
   filter(year(fecha)==2020, semester(fecha)==1) %>%
@@ -287,7 +287,7 @@ importar_totales_trafico(c("BQ", "BR", "BS", "BT"),
 
 ### Total semestral de Cartas Courier Internacionales (Entrada)  (en miles)
 
-```{r}
+```{r fig.height = fig_height_small}
 importar_totales_trafico("BZ")  %>%
   flujo_semestral() %>%
   filter(year>= 2016) %>%
@@ -297,7 +297,7 @@ importar_totales_trafico("BZ")  %>%
 
 
 ### Cartas Courier Internacionales (Entrada)  (en miles)
-```{r}
+```{r fig.height = fig_height_small}
 importar_totales_trafico(c("BV", "BW", "BX", "BY"),
                          header_row=list(cabezal_1=4)) %>%
   filter(year(fecha)==2020, semester(fecha)==1) %>%

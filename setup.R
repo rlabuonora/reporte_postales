@@ -61,7 +61,8 @@ serie_historica_2 <- function(df) {
     geom_point() +
     helper_serie() + 
     scale_color_discrete("") + 
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom")  + 
+    theme(panel.grid.major.y = element_line(color="gray80"))
 }
 
 paleta_cats <- c(
