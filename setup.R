@@ -1,8 +1,8 @@
 
 # Variables globales
-FECHA_INFORME_ANUAL <-  as.Date("2020-12-01")
-FECHA_TITULO_STOCK <-  "Diciembre 2020"
-FECHA_TITULO_FLUJO <-  "año 2020"
+FECHA_INFORME_ANUAL <-  as.Date("2021-12-01")
+FECHA_TITULO_STOCK <-  "Junio 2020"
+FECHA_TITULO_FLUJO <-  "Semestre I - 2020"
 
 # Libs
 library(galeriaPostales)
@@ -42,7 +42,7 @@ helper_serie <- function() {
   # Capas comunes a las series
   list(
     scale_x_date(date_breaks= "1 months", date_labels = "%m-%y"), 
-    ylim(c(0, NA)),
+    scale_y_continuous(expand=expansion(mult=c(0, .4))),
     labs(y="", x="")
   )
 }

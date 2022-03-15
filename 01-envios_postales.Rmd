@@ -4,47 +4,50 @@ output: html_document
 ---
 # Envíos Postales
 
-### Total semestral de Cartas enviadas (en millones)
+### Cartas Enviadas (`r FECHA_TITULO_FLUJO`) 
 
 ```{r fig.height = fig_height_small}
 ## columnas CF y C
 operadores <- importar_totales_trafico("C") %>%
   flujo_semestral() %>%
   mutate(numeric = numeric/1e6,
-         operador="Operadores")
+         operador="PJH")
 
 pjh <- importar_totales_trafico("CF", header_row = 3) %>%
   flujo_semestral() %>%
   mutate(numeric = numeric/1e6,
-         operador="PJH")
+         operador="Operadores")
 
 bind_rows(operadores, pjh) %>% 
-  arrange(year, semester, desc(operador)) %>% 
-  mutate(fecha = glue("{year  %% 100}-{semester}")) %>% 
+  arrange(year, semester, operador) %>% 
+  mutate(fecha = glue("'{year  %% 100}-{semester}")) %>% 
   group_by(fecha) %>% 
   mutate(y_pos = dplyr::lag(numeric, default = 0) + numeric/2) %>% 
   ungroup() %>% 
-  ggplot(aes(fecha, numeric, fill=operador)) + 
-  geom_col() +
+  ggplot(aes(fecha, numeric, fill=fct_infreq(operador))) + 
+  geom_col(position=position_stack(reverse=TRUE)) +
   geom_text(aes(label=scales::number_format(accuracy=1)(numeric), y=y_pos),
             color="white") + 
-  scale_fill_manual("", values=c(pal[5], paleta_cats[["rojo"]])) +
-  labs(x="", y="") +
-  theme(legend.position = "bottom",
+  scale_fill_manual("", values=c( paleta_cats[["rojo"]], pal[5])) +
+  labs(x="", y="", caption="Millones de cartas") +
+  guides(fill = guide_legend(direction="horizontal")) + 
+  theme(legend.position = c("top"),
+        plot.caption = element_text(vjust=6, hjust=0),
         axis.text.x    = ggplot2::element_text(vjust=6))
 ```
 
-### Total semestral de Paquetes enviados (en miles)
+### Paquetes Enviados
 ```{r fig.height = fig_height_small}
 ## ED
 importar_totales_trafico("ED", header_row = 3) %>%
   flujo_semestral() %>%
   mutate(numeric = numeric/1e3) %>%
-  serie_historica_semestral_flujo(numeric)
+  serie_historica_semestral_flujo(numeric) + 
+  labs(x="Semestre", y="Miles")
 ```
 
 
-### Total semestral de Envíos Postales (en millones)
+### Envíos Postales (en millones)
 ```{r}
 ## EG
 importar_totales_trafico("EG", header_row = 3) %>%
@@ -54,7 +57,7 @@ importar_totales_trafico("EG", header_row = 3) %>%
 
 ```
 
-### Total semestral de Cartas del SPU (millones)
+### Cartas del SPU (millones)
 ```{r}
 ## FD
 importar_totales_trafico("FD") %>%
@@ -63,7 +66,7 @@ importar_totales_trafico("FD") %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Paquetes del SPU (miles)
+### Paquetes del SPU (miles)
 ```{r}
 ## FC
 importar_totales_trafico("FC") %>%
@@ -72,7 +75,7 @@ importar_totales_trafico("FC") %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Envíos del SPU (millones)
+### Envíos del SPU (millones)
 
 ```{r}
 ## FB
@@ -94,7 +97,7 @@ importar_totales_trafico("CA")  %>%
 ```
 
 
-### Total semestral de Cartas Internacionales (Salida) (en miles)
+### Salida de Cartas Internacionales (en miles)
 ```{r}
 ## CB
 importar_totales_trafico("CB")  %>%
@@ -103,7 +106,7 @@ importar_totales_trafico("CB")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Cartas Internacionales (Entrada) (en miles)
+### Entrada de Cartas Internacionales () (en miles)
 ```{r}
 ## CD
 importar_totales_trafico("CC")  %>%
@@ -112,7 +115,7 @@ importar_totales_trafico("CC")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Paquetes Nacionales (en miles)
+### Paquetes Nacionales (en miles)
 ```{r}
 ## DZ
 importar_totales_trafico("DZ")  %>%
@@ -121,7 +124,7 @@ importar_totales_trafico("DZ")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Paquetes Internacionales (Salida) (en miles)
+### Salida de Paquetes Internacionales (en miles)
 ```{r}
 ## EA
 importar_totales_trafico("EA")  %>%
@@ -130,7 +133,7 @@ importar_totales_trafico("EA")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Total semestral de Paquetes Internacionales (Entrada) (en miles)
+### Entrada de Paquetes Internacionales (en miles)
 ```{r}
 ## EB
 importar_totales_trafico("EB")  %>%
@@ -139,28 +142,26 @@ importar_totales_trafico("EB")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Composición de Cartas (Semestre I - 2020)
+### Composición de Cartas (`r FECHA_TITULO_FLUJO`)
 ```{r}
 importar_totales_trafico(c("CA", "CB", "CC")) %>%
   filter(year(fecha)==2020, semester(fecha)==1) %>%
   group_by(cabezal) %>%
-  summarize(numeric=round(sum(numeric))) %>%
-  pie_chart(numeric, cabezal, nudge_x = c(-3, 3, 0)) %>%
-  print()
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal)
 ```
 
-### Composición de Paquetes (Semestre I - 2020)
+### Composición de Paquetes (`r FECHA_TITULO_FLUJO`)
 ```{r}
 ## DZ-EB
 importar_totales_trafico(c("DZ", "EA", "EB")) %>%
   filter(year(fecha)==2020, semester(fecha)==1) %>%
   group_by(cabezal) %>%
-  summarize(numeric=round(sum(numeric))) %>%
-  pie_chart(numeric, cabezal, nudge_x = c(-3, 3, 0)) %>%
-  print()
+  summarize(numeric=round(sum(numeric))) %>% 
+  barras_horizontales(numeric, cabezal)
 ```
 
-### Cartas Nacionales (Semestre I - 2020)
+### Cartas Nacionales (`r FECHA_TITULO_FLUJO`)
 ```{r}
 importar_totales_trafico(c("H", "W", "AL", "BA", "BP"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
@@ -172,7 +173,7 @@ importar_totales_trafico(c("H", "W", "AL", "BA", "BP"),
 
 ```
 
-### Cartas Internacionales (Salida) (Semestre I - 2020)
+### Salida de Cartas Internacionales (`r FECHA_TITULO_FLUJO`)
 
 
 ```{r}
@@ -185,7 +186,7 @@ importar_totales_trafico(c("BU", "BF", "AQ", "AB", "M"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Cartas Internacionales (Entrada) (Semestre I - 2020)
+### Entrada de Cartas Internacionales (`r FECHA_TITULO_FLUJO`)
 ```{r}
 importar_totales_trafico(c("R", "AG", "AV", "BK", "BZ"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
@@ -196,11 +197,9 @@ importar_totales_trafico(c("R", "AG", "AV", "BK", "BZ"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Paquetes Nacionales (Semestre I - 2020)
+### Paquetes Nacionales (`r FECHA_TITULO_FLUJO`)
 
 ```{r}
-## =(TRAFICO!$CR$226,TRAFICO!$DA$226,TRAFICO!$DJ$226,TRAFICO!$DS$226)
-
 importar_totales_trafico(c("CR", "DA", "DJ", "DS"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
     filter(year(fecha)==2020, semester(fecha)==1) %>%
@@ -212,7 +211,7 @@ importar_totales_trafico(c("CR", "DA", "DJ", "DS"),
 
 ```
 
-### Paquetes Internacionales (Salida) (Semestre I - 2020)
+### Salida de Paquetes Internacionales (`r FECHA_TITULO_FLUJO`)
 
 ```{r}
 importar_totales_trafico(c("CL", "CU", "DD", "DM", "DV"),
@@ -224,7 +223,7 @@ importar_totales_trafico(c("CL", "CU", "DD", "DM", "DV"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Paquetes Internacionales (Entrada) (Semestre I - 2020)
+### Entrada de Paquetes Internacionales (`r FECHA_TITULO_FLUJO`)
 ```{r}
 importar_totales_trafico(c("CX", "DG", "DP", "DY"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
