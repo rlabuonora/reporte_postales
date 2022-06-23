@@ -119,7 +119,7 @@ h2 {
 
 /* Front page or title page */
 .front-page {
-  counter-reset: page;
+  counter-reset: page 1;
 }
 
 /* Front matter*/
@@ -184,7 +184,7 @@ h2 {
 
 /* reset page numbering for main content */
 .main .level1:first-child h1 {
-  counter-reset: page;
+  counter-reset: page 1;
 }
 
 /* do not break captions */
