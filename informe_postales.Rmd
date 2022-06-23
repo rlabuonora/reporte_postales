@@ -6,14 +6,20 @@ output:
     toc: true
     number_sections: false
     toc_depth: 2
+    keep_md: true
     css:
       - "estilos/ursec-default-page.css"
       - "estilos/ursec-default.css"
       - "estilos/ursec-estilo.css"
+    pandoc_args:
+      - --lua-filter=loft.lua
     ## change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
     self_contained: true
 ## uncomment this line to produce HTML and PDF in RStudio:
 #knit: pagedown::chrome_print
+lof2: true
+lof-unlisted: true
+lof-title: "Índice de gráficos"
 abstract: | 
   #### Informe de Mercado de Telecomunicaciones de Uruguay
   
@@ -59,6 +65,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE,
                       message=FALSE,
                       cache=FALSE,
+                      fig.topcaption=TRUE,
                       fig.width = 7, 
                       fig.height = 4.5)
 
@@ -79,6 +86,25 @@ partes <- c(
             '08-ingresos.Rmd',
             '09-activos.Rmd')
 ```
+
+
+```{js, echo=FALSE}
+// Sacar el prefijo Figure 1 de las figuras en la tabla
+
+Paged.registerHandlers(class extends Paged.Handler {
+  constructor(chunker, polisher, caller) {
+      super(chunker, polisher, caller);
+  }
+
+  beforeParsed(content) {
+    const captions = content.querySelectorAll('.caption');
+    for (const el of captions) {
+      el.textContent = el.textContent.replace(/Figure\s\d{1,2}:\s/, "");
+    }
+  }
+});
+```
+
 
 
 ```{r, child=partes}
