@@ -4,7 +4,6 @@ output: html_document
 ---
 # Dimensión
 
-### Oficinas Postales abiertas al público por tipo (Semestre I – 2020)
 
 ```{r}
 dimension <- readRDS(here::here("data", "dimension_base_larga.rds"))
@@ -12,7 +11,9 @@ dimension <- readRDS(here::here("data", "dimension_base_larga.rds"))
 ```
 
 
-```{r fig.height=fig_height_small}
+```{r fig.height=fig_height_small, fig.cap=caption}
+
+caption <- "Oficinas Postales abiertas al público por tipo (Semestre I – 2020)"
 
 dimension %>%
   filter(year(fecha) == 2020, month(fecha) == 6) %>%
@@ -25,8 +26,9 @@ dimension %>%
 ```
 
 
-### Oficinas Postales no abiertas al público por tipo (Semestre I – 2020)
-```{r fig.height=fig_height_small}
+```{r fig.height=fig_height_small, fig.cap=caption}
+caption <- "Oficinas Postales no abiertas al público por tipo (Semestre I – 2020)"
+
 dimension %>%
   filter(year(fecha) == 2020, month(fecha) == 6) %>%
   group_by(header_1) %>%
