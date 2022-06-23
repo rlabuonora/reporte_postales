@@ -11,15 +11,10 @@ output:
       - "estilos/ursec-default-page.css"
       - "estilos/ursec-default.css"
       - "estilos/ursec-estilo.css"
-    pandoc_args:
-      - --lua-filter=loft.lua
-    ## change to true for a self-contained document, but it'll be a litte slower for Pandoc to render
-    self_contained: true
-## uncomment this line to produce HTML and PDF in RStudio:
-#knit: pagedown::chrome_print
-lof2: true
-lof-unlisted: true
-lof-title: "Índice de gráficos"
+    self_contained: false
+knit: pagedown::chrome_print
+lof: false
+lof-title: "Índice de Gráficos"
 abstract: | 
   #### Informe de Mercado de Telecomunicaciones de Uruguay
   
@@ -88,7 +83,7 @@ partes <- c(
 ```
 
 
-```{js, echo=FALSE}
+```{js, echo=FALSE, eval=FALSE}
 // Sacar el prefijo Figure 1 de las figuras en la tabla
 
 Paged.registerHandlers(class extends Paged.Handler {
