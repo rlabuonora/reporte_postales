@@ -12,7 +12,7 @@ output:
       - "estilos/ursec-estilo.css"
     self_contained: false
 knit: pagedown::chrome_print
-lof: false
+lof: true
 lof-title: "Índice de Gráficos"
 abstract: | 
   #### Informe de Mercado de Telecomunicaciones de Uruguay
@@ -82,7 +82,7 @@ partes <- c(
 ```
 
 
-```{js, echo=FALSE, eval=FALSE}
+```{js, echo=FALSE, eval=TRUE}
 // Sacar el prefijo Figure 1 de las figuras en la tabla
 
 Paged.registerHandlers(class extends Paged.Handler {
