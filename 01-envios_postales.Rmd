@@ -57,6 +57,7 @@ importar_totales_trafico("EG", header_row = 3) %>%
 
 ```
 
+
 ### Cartas del SPU (millones)
 ```{r}
 ## FD
@@ -106,7 +107,7 @@ importar_totales_trafico("CB")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Entrada de Cartas Internacionales () (en miles)
+### Entrada de Cartas Internacionales (en miles)
 ```{r}
 ## CD
 importar_totales_trafico("CC")  %>%

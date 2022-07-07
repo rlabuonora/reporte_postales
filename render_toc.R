@@ -68,6 +68,10 @@ render_toc <- function(
       header_text <- gsub("^[^[:alpha:]]*\\s*", "", header_text) # remove up to first alpha char
       header_slug <- paste(strsplit(header_text, " ")[[1]], collapse="-")
       header_slug <- tolower(header_slug)
+      # Escape parens
+      header_slug <- gsub("\\(", "", header_slug)
+      header_slug <- gsub("\\)", "", header_slug)
+      
     }
     paste0(strrep(" ", level * 4), "- [", header_text, "](#", header_slug, ")")
   })
