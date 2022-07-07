@@ -4,7 +4,7 @@ output: html_document
 ---
 # Envíos Postales
 
-### Cartas Enviadas (`r FECHA_TITULO_FLUJO`) 
+### Cartas Enviadas 
 
 ```{r fig.height = fig_height_small}
 ## columnas CF y C
@@ -142,7 +142,7 @@ importar_totales_trafico("EB")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Composición de Cartas (`r FECHA_TITULO_FLUJO`)
+### Composición de Cartas
 ```{r}
 importar_totales_trafico(c("CA", "CB", "CC")) %>%
   filter(year(fecha)==2020, semester(fecha)==1) %>%
@@ -151,7 +151,7 @@ importar_totales_trafico(c("CA", "CB", "CC")) %>%
   barras_horizontales(numeric, cabezal)
 ```
 
-### Composición de Paquetes (`r FECHA_TITULO_FLUJO`)
+### Composición de Paquetes
 ```{r}
 ## DZ-EB
 importar_totales_trafico(c("DZ", "EA", "EB")) %>%
@@ -161,7 +161,7 @@ importar_totales_trafico(c("DZ", "EA", "EB")) %>%
   barras_horizontales(numeric, cabezal)
 ```
 
-### Cartas Nacionales (`r FECHA_TITULO_FLUJO`)
+### Cartas Nacionales
 ```{r}
 importar_totales_trafico(c("H", "W", "AL", "BA", "BP"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
@@ -173,7 +173,7 @@ importar_totales_trafico(c("H", "W", "AL", "BA", "BP"),
 
 ```
 
-### Salida de Cartas Internacionales (`r FECHA_TITULO_FLUJO`)
+### Salida de Cartas Internacionales
 
 
 ```{r}
@@ -186,7 +186,7 @@ importar_totales_trafico(c("BU", "BF", "AQ", "AB", "M"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Entrada de Cartas Internacionales (`r FECHA_TITULO_FLUJO`)
+### Entrada de Cartas Internacionales
 ```{r}
 importar_totales_trafico(c("R", "AG", "AV", "BK", "BZ"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
@@ -197,7 +197,7 @@ importar_totales_trafico(c("R", "AG", "AV", "BK", "BZ"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Paquetes Nacionales (`r FECHA_TITULO_FLUJO`)
+### Paquetes Nacionales
 
 ```{r}
 importar_totales_trafico(c("CR", "DA", "DJ", "DS"),
@@ -211,7 +211,7 @@ importar_totales_trafico(c("CR", "DA", "DJ", "DS"),
 
 ```
 
-### Salida de Paquetes Internacionales (`r FECHA_TITULO_FLUJO`)
+### Salida de Paquetes Internacionales
 
 ```{r}
 importar_totales_trafico(c("CL", "CU", "DD", "DM", "DV"),
@@ -223,7 +223,7 @@ importar_totales_trafico(c("CL", "CU", "DD", "DM", "DV"),
     barras_horizontales(numeric, cabezal_1)
 ```
 
-### Entrada de Paquetes Internacionales (`r FECHA_TITULO_FLUJO`)
+### Entrada de Paquetes Internacionales
 ```{r}
 importar_totales_trafico(c("CX", "DG", "DP", "DY"),
                          header_row = list("cabezal_1"=3, "cabezal_2"=4)) %>%
