@@ -46,7 +46,7 @@ giros_base_larga %>%
 ```
 
 
-### Giros postales Internacionales (Entrada)  por operador (Semestre I - 2020)
+### Giros postales Internacionales (Entrada) por operador (Semestre I - 2020)
 ```{r fig.height=fig_height_small}
 giros_base_larga %>%
   filter(header_1 %in% c("Giros int ent")) %>%

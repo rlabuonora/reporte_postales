@@ -214,8 +214,6 @@ tarifas_historico %>%
 ```
 
 
-
-
 ### Tarifas promedio Cartas servicio Courier de 100 grs. Internacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
