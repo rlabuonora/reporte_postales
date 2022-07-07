@@ -12,6 +12,7 @@ library(lubridate)
 library(extrafont)
 library(glue)
 
+source("render_toc.R")
 
 # Cargar fuente
 loadfonts()
