@@ -24,7 +24,7 @@ tarifas_historico <- importar_totales_tarifas() %>%
 
 ```
 
-### Tarifas Cartas Comunes de 20 grs. – Nacional
+### Tarifas Cartas Comunes de 20 grs. Nacional
 
 
 ```{r fig.height = fig_height_extra_small}
@@ -39,7 +39,7 @@ tarifas_historico %>%
 
 ```
 
-### Tarifas promedio Cartas Comunes de 20 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas Comunes de 20 grs. Internacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -52,7 +52,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Comunes de 100 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas Comunes de 100 grs. Nacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -76,7 +76,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Comunes de 500 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas Comunes de 500 grs. Nacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -88,7 +88,7 @@ tarifas_historico %>%
   serie_historica()
 ```
 
-### Tarifas promedio Cartas Comunes de 500 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas Comunes de 500 grs. Internacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -101,7 +101,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Registradas de 20 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 20 grs. Nacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -113,7 +113,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Registradas de 20 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 20 grs. Internacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -125,7 +125,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Registradas de 100 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 100 grs. Nacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -138,7 +138,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Registradas de 100 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 100 grs. Internacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -152,7 +152,7 @@ tarifas_historico %>%
 
 
 
-### Tarifas promedio Cartas Registradas de 500 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 500 grs. Nacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -165,7 +165,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas Registradas de 500 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas Registradas de 500 grs. Internacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -177,7 +177,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas servicio Courier de 20 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 20 grs. Nacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -189,7 +189,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas servicio Courier de 20 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 20 grs. Internacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
@@ -202,7 +202,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas servicio Courier de 100 grs. – Nacional (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 100 grs. Nacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -216,7 +216,7 @@ tarifas_historico %>%
 
 
 
-### Tarifas promedio Cartas servicio Courier de 100 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 100 grs. Internacional (pesos con impuestos)
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
   filter(header_0 == "Cartas") %>%
@@ -229,7 +229,7 @@ tarifas_historico %>%
 ```
 
 
-### Tarifas promedio Cartas servicio Courier de 500 grs. – Nacional    (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 500 grs. Nacional (pesos con impuestos)
 
 
 ```{r fig.height = fig_height_extra_small}
@@ -244,7 +244,7 @@ tarifas_historico %>%
 
 
 
-### Tarifas promedio Cartas servicio Courier de 500 grs. – Internacional (pesos con impuestos)
+### Tarifas promedio Cartas servicio Courier de 500 grs. Internacional (pesos con impuestos)
 
 ```{r fig.height = fig_height_extra_small}
 tarifas_historico %>%
