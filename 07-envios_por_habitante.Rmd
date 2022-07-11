@@ -45,5 +45,6 @@ envios_post <- paquetes_totales %>%
 envios <- bind_rows(envios_pre, envios_post)
 
 envios  %>%
+  filter(year<2020) %>% 
   serie_historica_anual(envios_pob)
 ```

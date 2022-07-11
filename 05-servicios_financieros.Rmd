@@ -13,6 +13,7 @@ giros_base_larga <- readRDS(here::here("data", "giros_base_larga.rds"))
 ```{r fig.height=fig_height_small}
 giros_base_larga %>%
   filter(header_1 %in% c("Giros int ent", "Giros int sal", "Giros nac")) %>%
+  filter(fecha<as.Date("2020-06-01")) %>% 
   group_by(year=year(fecha), semester=semester(fecha)) %>%
   summarize(numeric = sum(numeric) / 1e3) %>%
   serie_historica_semestral_flujo(numeric)
@@ -25,11 +26,18 @@ giros_base_larga %>%
 giros_base_larga %>%
   filter(header_1 %in% c("Giros nac")) %>%
   filter(year(fecha) == 2020, semester(fecha) == 1) %>%
+  filter(numeric > 0) %>%
   group_by(nombre) %>%
   summarize(numeric = sum(numeric)) %>%
+  mutate(prop=numeric/sum(numeric)) %>% 
+  mutate(nombre = fct_lump_min(nombre, min =.015, w=prop, other_level = "Resto (*)")) %>% 
+  group_by(nombre) %>%
+  summarize(numeric = sum(numeric)) %>%
+  mutate(prop=numeric/sum(numeric)) %>% 
   arrange(numeric) %>%
-  filter(numeric > 0) %>%
   barras_horizontales(numeric, nombre)
+
+
 ```
 
 

@@ -28,7 +28,7 @@ bind_rows(operadores, pjh) %>%
   geom_col(position=position_stack(reverse=TRUE)) +
   geom_text(aes(label=scales::number_format(accuracy=1)(numeric), y=y_pos),
             color="white") + 
-  scale_fill_manual("", values=c( paleta_cats[["rojo"]], pal[5])) +
+  scale_fill_manual("", values=c( pal[5], paleta_cats[["rojo"]])) +
   labs(x="", y="", caption="Millones de cartas") +
   guides(fill = guide_legend(direction="horizontal")) + 
   theme(legend.position = c("top"),

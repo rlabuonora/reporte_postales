@@ -52,7 +52,8 @@ serie_historica <- function(df) {
     geom_line(color=pal[5]) +
     geom_point(color =pal[5]) +
     helper_serie() + 
-    theme(panel.grid.major.y = element_line(color="gray80"))
+    theme(panel.grid.major.y = element_line(color="gray80")) + 
+    expand_limits(y=0)
 }
 
 serie_historica_2 <- function(df) {
@@ -62,7 +63,8 @@ serie_historica_2 <- function(df) {
     helper_serie() + 
     scale_color_discrete("") + 
     theme(legend.position = "bottom")  + 
-    theme(panel.grid.major.y = element_line(color="gray80"))
+    theme(panel.grid.major.y = element_line(color="gray80")) +
+    expand_limits(y=0)
 }
 
 paleta_cats <- c(
