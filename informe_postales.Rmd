@@ -88,3 +88,29 @@ partes <- c(
 render_toc("01-envios_postales.Rmd")
 ```
 
+# Índice de Gráficos  {.page-break-before}
+```{r}
+render_toc(partes)
+```
+
+
+<!-- Este hook le agrega .lof a las ultimos dos elementos .main -->
+<!-- Para seleccionar  -->
+
+```{js, echo=FALSE}
+Paged.registerHandlers(class extends Paged.Handler {
+  constructor(chunker, polisher, caller) {
+      super(chunker, polisher, caller);
+  }
+
+  afterPreview(pages) {
+    var pages = Array.from(pages).slice(-4);
+    
+    pages.forEach(function(page) {
+      page.wrapper.classList.toggle("lof");
+    });
+    
+  }
+  
+});
+```

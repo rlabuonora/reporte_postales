@@ -46,7 +46,7 @@ importar_totales_trafico(c("I", "J", "K", "L"),
 
 ```
 
-### Total semestral de Cartas Comunes Internacionales (Entrada)  (en miles)
+### Total semestral de Cartas Comunes Internacionales (Entrada) (en miles)
 ```{r}
 importar_totales_trafico("R")  %>%
   flujo_semestral() %>%
@@ -55,7 +55,7 @@ importar_totales_trafico("R")  %>%
 ```
 
 
-### Cartas Comunes Internacionales (Entrada)  (Semestre I - 2020)
+### Cartas Comunes Internacionales (Entrada) (Semestre I - 2020)
 ```{r}
 importar_totales_trafico(c("N", "O", "P", "Q"),
                          header_row=list(cabezal_1=4)) %>%
@@ -202,7 +202,7 @@ importar_totales_trafico(c("CS", "CT"),
   barras_horizontales(numeric, cabezal_1)
 ```
 
-### Total semestral de Paquetes Registrados Internacionales (Entrada)  (en miles)
+### Total semestral de Paquetes Registrados Internacionales (Entrada) (en miles)
 ```{r}
 
 importar_totales_trafico("CX")  %>%
@@ -211,7 +211,7 @@ importar_totales_trafico("CX")  %>%
   serie_historica_semestral_flujo(numeric)
 ```
 
-### Paquetes Registrados Internacionales (Entrada)  (Semestre I - 2020)
+### Paquetes Registrados Internacionales (Entrada) (Semestre I - 2020)
 ```{r}
 importar_totales_trafico(c("CV", "CW"),
                          header_row=list(cabezal_1=4)) %>%
@@ -285,7 +285,7 @@ importar_totales_trafico(c("BQ", "BR", "BS", "BT"),
 ```
 
 
-### Total semestral de Cartas Courier Internacionales (Entrada)  (en miles)
+### Total semestral de Cartas Courier Internacionales (Entrada) (en miles)
 
 ```{r fig.height = fig_height_small}
 importar_totales_trafico("BZ")  %>%
@@ -296,7 +296,7 @@ importar_totales_trafico("BZ")  %>%
 ```
 
 
-### Cartas Courier Internacionales (Entrada)  (en miles)
+### Cartas Courier Internacionales (Entrada) (en miles)
 ```{r fig.height = fig_height_small}
 importar_totales_trafico(c("BV", "BW", "BX", "BY"),
                          header_row=list(cabezal_1=4)) %>%
@@ -348,7 +348,7 @@ importar_totales_trafico(c("DT", "DU"),
   barras_horizontales(numeric, cabezal_1)
 ```
 
-### Total semestral de Paquetes Courier Internacionales (Entrada)  (en miles)
+### Total semestral de Paquetes Courier Internacionales (Entrada) (en miles)
 ```{r}
 importar_totales_trafico("DY") %>%
   flujo_semestral() %>%
@@ -358,7 +358,7 @@ importar_totales_trafico("DY") %>%
 ```
 
 
-### Paquetes Courier Internacionales (Entrada)  (en miles)
+### Paquetes Courier Internacionales (Entrada) (en miles)
 ```{r}
 importar_totales_trafico(c("DW", "DX"),
                          header_row=list(cabezal_1=4)) %>%
@@ -499,7 +499,7 @@ paquetes_base_larga %>%
 
 ```
 
-### Cartas Internacionales (Entrada)  - por operador (Semestre I - 2020)
+### Cartas Internacionales (Entrada) - por operador (Semestre I - 2020)
 ```{r}
 cartas_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
@@ -516,7 +516,7 @@ cartas_base_larga %>%
 ```
 
 
-### Paquetes Internacionales (Entrada)  - por operador (Semestre I - 2020)
+### Paquetes Internacionales (Entrada) - por operador (Semestre I - 2020)
 ```{r}
 paquetes_base_larga %>%
     filter(stringr::str_detect(header_1, "[Ee]nt")) %>%
@@ -606,7 +606,7 @@ paquetes_base_larga %>%
     theme(plot.caption = element_text(vjust=6))
 ```
 
-### Cartas Courier Internacionales (Entrada)  - por operador (Semestre I - 2020)
+### Cartas Courier Internacionales (Entrada) - por operador (Semestre I - 2020)
 ```{r}
 cartas_base_larga %>%
     filter(header_1 == "Courier Ent - Hasta 20 g") %>%
@@ -622,7 +622,7 @@ cartas_base_larga %>%
     barras_horizontales(numeric, nombre)
 ```
 
-### Paquetes Courier Internacionales (Entrada)  - por operador (Semestre I - 2020)
+### Paquetes Courier Internacionales (Entrada) - por operador (Semestre I - 2020)
 ```{r}
 paquetes_base_larga %>%
     filter(header_1 == "Courier Ent") %>%
