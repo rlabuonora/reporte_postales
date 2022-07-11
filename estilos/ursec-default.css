@@ -23,10 +23,10 @@ a[href^="http"]:not([class="uri"])::after {
   content: none;
 }
 .main a[href^="#"]:not([class^="footnote-"]):not([href*=":"])::after {
-  content: " (page " target-counter(attr(href), page) ")";
+  content: " (pág " target-counter(attr(href), page) ")";
 }
 .main a.front-matter-ref[href^="#"]:not([class^="footnote-"]):not([href*=":"])::after {
-  content: " (page " target-counter(attr(href), page, lower-roman) ")";
+  content: " (pág " target-counter(attr(href), page, lower-roman) ")";
 }
 /* do not include page references in code blocks */
 .sourceCode a[href^="#"]:not([class^="footnote-"]):not([href*=":"])::after,

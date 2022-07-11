@@ -81,7 +81,10 @@ partes <- c(
 ```
 
 
-```{r, child=partes}
+```{r, child=partes[1]}
 ```
 
+```{r}
+render_toc("01-envios_postales.Rmd")
+```
 
