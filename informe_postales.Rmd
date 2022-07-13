@@ -82,7 +82,7 @@ partes <- c(
 ```
 
 
-```{js, echo=FALSE, eval=TRUE}
+```{js, echo=FALSE, eval=FALSE}
 // Sacar el prefijo Figure 1 de las figuras en la tabla
 
 Paged.registerHandlers(class extends Paged.Handler {
